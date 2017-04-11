@@ -10,14 +10,7 @@ pipelines:
     - step:
         script: # Modify the commands below to build your repository.
           - apt-get update
-          - apt-get -y install cmake pkg-config cppcheck doxygen ruby-ronn mercurial
-          # Install Ignition Math.
-          - hg clone https://bitbucket.org/ignitionrobotics/ign-math
-          - cd ign-math
-          - mkdir build && cd build
-          - cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-          - make -j4 install
-          - cd ../..
+          - apt-get -y install cmake pkg-config cppcheck doxygen ruby-ronn mercurial libignition-math2-dev
           - mkdir build && cd build
           - cmake ..
           - make -j4
