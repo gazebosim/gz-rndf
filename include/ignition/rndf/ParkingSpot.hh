@@ -72,6 +72,8 @@ namespace ignition
 
       /// \brief Set the parking spot width.
       /// \param[in] _newWidth The new width in meters.
+      /// \return True if the new width was set or false otherwise
+      /// (invalid value).
       public: bool SetWidth(const double _newWidth);
 
       //////////////
@@ -190,6 +192,8 @@ namespace ignition
 
       /// \brief Set the parking spot width.
       /// \param[in] _newWidth The new width in meters.
+      /// \return True if the new width was set of false otherwise (invalid
+      /// value).
       public: bool SetWidth(const double _newWidth);
 
       //////////////

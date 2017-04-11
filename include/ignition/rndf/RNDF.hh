@@ -82,7 +82,7 @@ namespace ignition
       public: std::string Date() const;
 
       /// \brief Set the creation date.
-      /// \param[in] _date The new creation date.
+      /// \param[in] _newDate The new creation date.
       public: void SetDate(const std::string &_newDate) const;
 
       /// \brief Smart pointer to private data.
@@ -232,7 +232,7 @@ namespace ignition
       public: std::string Date() const;
 
       /// \brief Set the creation date.
-      /// \param[in] _date The new creation date.
+      /// \param[in] _newDate The new creation date.
       public: void SetDate(const std::string &_newDate) const;
 
       //////////////
@@ -250,6 +250,7 @@ namespace ignition
       /// \brief Get a pointer to the associated RNDF node given a unique Id.
       /// The RNDFNode object contains the metada associated to the id.
       /// \param[in] _id The Unique Id to check.
+      /// \return A pointer to the RNDFnode.
       public: RNDFNode *Info(const rndf::UniqueId &_id) const;
 
       /// \brief Populates the "cache" member variable linking all unique Ids

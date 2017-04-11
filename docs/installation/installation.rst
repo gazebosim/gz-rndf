@@ -5,6 +5,15 @@ Installation
 Instructions to install Ignition RNDF on all the platforms supported: major
 Linux distributions, Mac OS X and Windows.
 
+Next, you can see the major Ignition RNDF versions, their availability and lifetime.
+
++---------+-----------------+------------------+-------------------------+---------------+--------------+
+| Version | Available on    | Available on     |   Available on MacOS    |     Since     |     EOL      |
+|         | Ubuntu directly | Ubuntu via OSRF  |   via Homebrew tab      |               |              |
++=========+=================+==================+=========================+===============+==============+
+|  *0.y*  |        --       | ``Ubuntu T, X``  | ``Yosemite,El Capitan`` |   April 2017  |  April 2021  |
++---------+-----------------+------------------+-------------------------+---------------+--------------+
+
 Ubuntu Linux
 ============
 

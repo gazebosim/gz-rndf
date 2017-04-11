@@ -244,6 +244,8 @@ namespace ignition
       /// The expected format is the one specified on the RNDF spec.
       /// \param[in, out] _rndfFile Input file stream.
       /// \param[in, out] _segmentId Expected segment Id.
+      /// \param[in, out] _lineNumber Line number pointed by the stream position
+      /// indicator.
       /// \return True if a lane block was found and parsed or
       /// false otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,

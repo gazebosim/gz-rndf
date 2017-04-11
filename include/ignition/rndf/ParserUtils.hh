@@ -54,7 +54,8 @@ namespace ignition
     /// considered parsable lines, so they will be consumed by this function.
     /// \param[in, out] _rndfFile Input file stream.
     /// \param[out] _line First line found with parsable content.
-    /// \param[in, out] Line number pointed by the stream position indicator.
+    /// \param[in, out] _lineNumber Line number pointed by the stream position
+    /// indicator.
     IGNITION_RNDF_VISIBLE
     void nextRealLine(std::ifstream &_rndfFile,
                       std::string &_line,
@@ -71,6 +72,8 @@ namespace ignition
     /// \param[in, out] _rndfFile Input file stream.
     /// \param[in] _delimiter The <DELIMITER>.
     /// \param[out] _value The parsed <STRING>.
+    /// \param[in, out] _lineNumber Line number pointed by the stream position
+    /// indicator.
     /// \return True if the next parsable line matched the expression or false
     /// otherwise.
     IGNITION_RNDF_VISIBLE
@@ -87,6 +90,8 @@ namespace ignition
     /// always placed at the end of the line.
     /// \param[in, out] _rndfFile Input file stream.
     /// \param[in] _delimiter The <DELIMITER>.
+    /// \param[in, out] _lineNumber Line number pointed by the stream position
+    /// indicator.
     /// \return True if the next parsable line matched the expression or false
     /// otherwise.
     IGNITION_RNDF_VISIBLE
@@ -104,6 +109,8 @@ namespace ignition
     /// \param[in, out] _rndfFile Input file stream.
     /// \param[in] _delimiter The <DELIMITER>.
     /// \param[out] _value The parsed <POSITIVE>.
+    /// \param[in, out] _lineNumber Line number pointed by the stream position
+    /// indicator.
     /// \return True if the next parsable line matched the expression or false
     /// otherwise.
     IGNITION_RNDF_VISIBLE
@@ -122,6 +129,8 @@ namespace ignition
     /// \param[in, out] _rndfFile Input file stream.
     /// \param[in] _delimiter The <DELIMITER>.
     /// \param[out] _value The parsed <NON_NEGATIVE>.
+    /// \param[in, out] _lineNumber Line number pointed by the stream position
+    /// indicator.
     /// \return True if the next parsable line matched the expression or false
     /// otherwise.
     IGNITION_RNDF_VISIBLE
@@ -137,6 +146,7 @@ namespace ignition
     /// <COMMENT> is an optional element delimited by "/*" and "*/" and is
     /// always placed at the end of the line.
     /// \param[in] _input Input string.
+    /// \param[in] _delimiter The <DELIMITER>.
     /// \param[out] _value The parsed <NON_NEGATIVE>.
     /// \return True if the input string matched the expression or false
     /// otherwise.
@@ -189,7 +199,7 @@ namespace ignition
     /// \param[in] _input Input string.
     /// \param[in] _segmentId The expected segment Id (the "x").
     /// \param[in] _laneId The expected lane Id (the "y").
-    /// \param[out] _uniqueId An uniqueId object created parsing <WAYPOINT_ID>.
+    /// \param[out] _stop An uniqueId object created parsing <WAYPOINT_ID>.
     /// \return True if the input string matched the expression or false
     /// otherwise.
     IGNITION_RNDF_VISIBLE

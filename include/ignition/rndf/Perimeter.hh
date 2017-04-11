@@ -59,7 +59,7 @@ namespace ignition
       /// false otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,
                         const int _zoneId,
-                        const int _spotId,
+                        const int _perimeterId,
                         int &_lineNumber);
 
       /////////

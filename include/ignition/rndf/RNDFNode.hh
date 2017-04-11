@@ -95,7 +95,7 @@ namespace ignition
       public: void SetLane(rndf::Lane *_lane);
 
       /// \brief Set the pointer to the zone that contains the waypoint.
-      /// \param[in] _segment Pointer to the zone that contains the waypoint
+      /// \param[in] _zone Pointer to the zone that contains the waypoint
       /// or nullpr if there's no zone (e.g. ig the waypoint belongs to a
       /// segment).
       public: void SetZone(rndf::Zone *_zone);

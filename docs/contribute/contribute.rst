@@ -47,7 +47,7 @@ branch name ``issue_`` followed by the issue number. E.g.: ``issue_23``.
 
 6. Compiler warnings.
 
-  Code must have zero compile warnings. This currently only applies to Linux.
+  Code must have zero compile warnings.
 
 7. Style.
 
