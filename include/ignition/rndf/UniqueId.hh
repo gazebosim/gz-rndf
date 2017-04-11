@@ -20,6 +20,7 @@
 
 #include <iostream>
 #include <string>
+
 #include "ignition/rndf/Helpers.hh"
 
 namespace ignition

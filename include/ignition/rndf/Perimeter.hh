@@ -148,7 +148,8 @@ namespace ignition
       /// \param[in] _wpId The point Id.
       /// \param[out] _wp The waypoint requested.
       /// \return True if the point was found or false otherwise.
-      public: bool Point(const int _wpId, rndf::Waypoint &_wp) const;
+      public: bool Point(const int _wpId,
+                         rndf::Waypoint &_wp) const;
 
       /// \brief Update an existing point.
       /// \param[in] _wp The updated waypoint.

@@ -329,7 +329,7 @@ std::string Zone::Name() const
 }
 
 //////////////////////////////////////////////////
-void Zone::SetName(const std::string &_name) const
+void Zone::SetName(const std::string &_name)
 {
   this->dataPtr->header.SetName(_name);
 }

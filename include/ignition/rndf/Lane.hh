@@ -130,7 +130,8 @@ namespace ignition
       /// \param[in] _cpId The checkpoint Id.
       /// \param[out] _cp The checkpoint requested.
       /// \return True if the checkpoint was found or false otherwise.
-      public: bool Checkpoint(const int _cpId, rndf::Checkpoint &_cp) const;
+      public: bool Checkpoint(const int _cpId,
+                              rndf::Checkpoint &_cp) const;
 
       /// \brief Update an existing checkpoint.
       /// \param[in] _cp The updated checkpoint.
