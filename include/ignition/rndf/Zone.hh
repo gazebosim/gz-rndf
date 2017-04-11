@@ -86,7 +86,8 @@ namespace ignition
     {
       /// \brief Default constructor.
       /// \sa Valid.
-      public: explicit Zone();
+      // explicit keyword removed to workaround a bug in g++ 4.8.4 (Trusty).
+      public: Zone();
 
       /// \brief Constructor.
       /// \param[in] _id Zone Id (a positive number).
