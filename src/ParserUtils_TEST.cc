@@ -191,6 +191,35 @@ TEST_F(ParserUtilsTest, positive)
 }
 
 //////////////////////////////////////////////////
+/// \brief Check the function that parses a positive value.
+TEST(ParserUtils, positive)
+{
+  int width;
+  const std::string kDel = "delim";
+
+  EXPECT_FALSE(parsePositive("xxx 1"                    , kDel, width));
+  EXPECT_FALSE(parsePositive("delim"                    , kDel, width));
+  EXPECT_FALSE(parsePositive("delim -1"                 , kDel, width));
+  EXPECT_FALSE(parsePositive("delim 0 "                 , kDel, width));
+  EXPECT_FALSE(parsePositive("delim 1 2"                , kDel, width));
+  EXPECT_FALSE(parsePositive("delim 32769"              , kDel, width));
+  EXPECT_FALSE(parsePositive("delim 1 /* a comment */ 2", kDel, width));
+  EXPECT_FALSE(parsePositive("delim 1 /* bad comment"   , kDel, width));
+  EXPECT_TRUE(parsePositive(" delim 1"                  , kDel, width));
+  EXPECT_EQ(width, 1);
+  EXPECT_TRUE(parsePositive("delim 32768"               , kDel, width));
+  EXPECT_EQ(width, 32768);
+  EXPECT_TRUE(parsePositive("delim 1 "                  , kDel, width));
+  EXPECT_EQ(width, 1);
+  EXPECT_TRUE(parsePositive("delim    50"               , kDel, width));
+  EXPECT_EQ(width, 50);
+  EXPECT_TRUE(parsePositive("delim 1 /* a comment */"   , kDel, width));
+  EXPECT_EQ(width, 1);
+  EXPECT_TRUE(parsePositive("delim 1  /* a comment */ " , kDel, width));
+  EXPECT_EQ(width, 1);
+}
+
+//////////////////////////////////////////////////
 /// \brief Check the function that parses a nonNegative value.
 TEST_F(ParserUtilsTest, nonNegative)
 {
@@ -323,6 +352,7 @@ TEST(ParserUtils, checkPoint)
   EXPECT_FALSE(parseCheckpoint("checkpoint 1.2.3 -1"               , 1, 2, cp));
   EXPECT_FALSE(parseCheckpoint("checkpoint 1.2.3 32769"            , 1, 2, cp));
   EXPECT_FALSE(parseCheckpoint("checkpoint 1.2.0 1"                , 1, 2, cp));
+  EXPECT_FALSE(parseCheckpoint("checkpoint 1.2.x 1"                , 1, 2, cp));
   EXPECT_FALSE(parseCheckpoint("checkpoint 1.2.32769 1"            , 1, 2, cp));
   EXPECT_FALSE(parseCheckpoint("checkpoint 1.2.-1 1"               , 1, 2, cp));
   EXPECT_FALSE(parseCheckpoint("checkpoint 1.2.3 x"                , 1, 2, cp));
@@ -360,6 +390,7 @@ TEST(ParserUtils, stop)
   EXPECT_FALSE(parseStop("stop 1.2.3"                   , 9, 2, stop));
   EXPECT_FALSE(parseStop("stop 1.2.0"                   , 1, 2, stop));
   EXPECT_FALSE(parseStop("stop 1.2.-1"                  , 1, 2, stop));
+  EXPECT_FALSE(parseStop("stop 1.2.x"                   , 1, 2, stop));
   EXPECT_FALSE(parseStop("stop 1.2.32769"               , 1, 2, stop));
   EXPECT_FALSE(parseStop("stop 1.2.3 /*bad"             , 1, 2, stop));
   EXPECT_TRUE(parseStop(" stop 1.2.3"                   , 1, 2, stop));
@@ -391,10 +422,14 @@ TEST(ParserUtils, exit)
   EXPECT_FALSE(parseExit("exit 1.2.3 2.3.4"                      , 9, 2, exit));
   EXPECT_FALSE(parseExit("exit 1.2.3"                            , 1, 2, exit));
   EXPECT_FALSE(parseExit("exit 1.2.3 0.3.4"                      , 1, 2, exit));
+  EXPECT_FALSE(parseExit("exit 1.2.3 x.3.4"                      , 1, 2, exit));
+  EXPECT_FALSE(parseExit("exit 1.2.x 1.3.4"                      , 1, 2, exit));
   EXPECT_FALSE(parseExit("exit 1.2.3 2.3.0"                      , 1, 2, exit));
   EXPECT_FALSE(parseExit("exit 1.2.3 -2.3.4"                     , 1, 2, exit));
   EXPECT_FALSE(parseExit("exit 1.2.3 2.-3.4"                     , 1, 2, exit));
+  EXPECT_FALSE(parseExit("exit 1.2.3 2.x.4"                     , 1, 2, exit));
   EXPECT_FALSE(parseExit("exit 1.2.3 2.3.-4"                     , 1, 2, exit));
+  EXPECT_FALSE(parseExit("exit 1.2.3 2.3.x"                     , 1, 2, exit));
   EXPECT_FALSE(parseExit("exit 1.2.3 32769.3.4"                  , 1, 2, exit));
   EXPECT_FALSE(parseExit("exit 1.2.3 2.32769.4"                  , 1, 2, exit));
   EXPECT_FALSE(parseExit("exit 1.2.3 2.3.32769"                  , 1, 2, exit));

@@ -141,18 +141,11 @@ bool RNDFHeader::Load(std::ifstream &_rndfFile, int &_lineNumber)
       this->SetVersion(tokens[1]);
       versionFound = true;
     }
-    else if (tokens[0] == "creation_date")
+    // creation_date option.
+    else
     {
       this->SetDate(tokens[1]);
       dateFound = true;
-    }
-    else
-    {
-      // Invalid or repeated header element.
-      std::cerr << "[Line " << _lineNumber << "]: Unable to parse file header "
-                << "element." << std::endl;
-      std::cerr << " \"" << lineread << "\"" << std::endl;
-      return false;
     }
   }
 

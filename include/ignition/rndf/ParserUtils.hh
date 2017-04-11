@@ -156,6 +156,22 @@ namespace ignition
                           int &_value);
 
     /// \brief Checks if a string matches the following expression:
+    /// "<DELIMITER> <POSITIVE> [<COMMENT>]".
+    /// <DELIMITER> is a string such as "RNDF_name".
+    /// <POSITIVE> is a positive value between [1, 32768].
+    /// <COMMENT> is an optional element delimited by "/*" and "*/" and is
+    /// always placed at the end of the line.
+    /// \param[in] _input Input string.
+    /// \param[in] _delimiter The <DELIMITER>.
+    /// \param[out] _value The parsed <POSITIVE>.
+    /// \return True if the input string matched the expression or false
+    /// otherwise.
+    IGNITION_RNDF_VISIBLE
+    bool parsePositive(const std::string &_input,
+                       const std::string &_delimiter,
+                       int &_value);
+
+    /// \brief Checks if a string matches the following expression:
     /// "left_boundary <BOUNDARY> [<COMMENT>]" or.
     /// "right_boundary <BOUNDARY> [<COMMENT>]".
     /// <BOUNDARY> is a string with one of the following values (double_yellow,

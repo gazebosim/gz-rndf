@@ -209,8 +209,7 @@ bool Perimeter::Load(std::ifstream &_rndfFile, const int _zoneId,
 
   // Parse optional perimeter header.
   PerimeterHeader header;
-  if (!header.Load(_rndfFile, _zoneId, 0, _lineNumber))
-    return false;
+  !header.Load(_rndfFile, _zoneId, 0, _lineNumber);
 
   // Parse the perimeter points.
   std::vector<rndf::Waypoint> perimeterPoints;

@@ -23,6 +23,7 @@ set (gtest_sources
   ParserUtils_TEST.cc
   Perimeter_TEST.cc
   RNDF_TEST.cc
+  RNDFNode_TEST.cc
   Segment_TEST.cc
   UniqueId_TEST.cc
   Waypoint_TEST.cc

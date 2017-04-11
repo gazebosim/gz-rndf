@@ -493,6 +493,33 @@ TEST_F(SegmentTest, Load)
       "end_lane\n"
       "end_segment\n"
                                                     , false, 0, 6),
+    // Non-consecutive lanes.
+    std::make_tuple(
+      "\n/* comment */\n"
+      "segment 60\n"
+      "num_lanes 2\n"
+      "lane  60.1\n"
+      "num_waypoints 5\n"
+      "lane_width  15\n"
+      "exit  60.1.5  63.0.6  /* into Red zone West */\n"
+      "60.1.1  34.587562 -117.367396\n"
+      "60.1.2  34.587560 -117.367631\n"
+      "60.1.3  34.587557 -117.367941\n"
+      "60.1.4  34.587469 -117.368018\n"
+      "60.1.5  34.587116 -117.368016\n"
+      "end_lane\n"
+      "lane  60.3\n"
+      "num_waypoints 5\n"
+      "lane_width  15\n"
+      "exit  60.3.5  63.0.6  /* into Red zone West */\n"
+      "60.3.1  34.587562 -117.367396\n"
+      "60.3.2  34.587560 -117.367631\n"
+      "60.3.3  34.587557 -117.367941\n"
+      "60.3.4  34.587469 -117.368018\n"
+      "60.3.5  34.587116 -117.368016\n"
+      "end_lane\n"
+      "end_segment\n"
+                                                    , false, 1, 24),
     // No options.
     std::make_tuple(
       "\n/* comment */\n"

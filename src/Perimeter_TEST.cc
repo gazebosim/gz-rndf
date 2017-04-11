@@ -406,6 +406,16 @@ TEST_F(PerimeterTest, load)
       "61.0.3 34.587440 -117.366444\n"
       "end_perimeter\n"
                                                     , false, 18, 5),
+    // Non-consecutive perimeterpoints.
+    std::make_tuple(
+      "\n/* comment */\n"
+      "perimeter 61.0/* comment */\n"
+      "num_perimeterpoints 3\n"
+      "61.0.1 34.587434 -117.367061/* comment */\n"
+      "61.0.2 34.587436 -117.366847 /* comment */  \n"
+      "61.0.5 34.587440 -117.366444\n"
+      "end_perimeter\n"
+                                                    , false, 18, 7),
     // Missing terminator.
     std::make_tuple(
       "\n\n"

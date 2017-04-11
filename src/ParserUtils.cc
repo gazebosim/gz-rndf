@@ -240,6 +240,14 @@ namespace ignition
     }
 
     //////////////////////////////////////////////////
+    bool parsePositive(const std::string &_input,
+      const std::string &_delimiter, int &_value)
+    {
+      bool res = parseNonNegative(_input, _delimiter, _value);
+      return res && _value > 0;
+    }
+
+    //////////////////////////////////////////////////
     bool parseBoundary(const std::string &_input, Marking &_boundary)
     {
       _boundary = Marking::UNDEFINED;

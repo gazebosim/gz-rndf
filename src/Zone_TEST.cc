@@ -485,6 +485,46 @@ TEST_F(ZoneTest, Load)
       "end_spot\n"
       "end_zone\n"
                                                     , false, 0, 13),
+    // Non-consecutive parking spots.
+    std::make_tuple(
+      "\n/* comment */\n"
+      "zone  67\n"
+      "num_spots 2\n"
+      "perimeter 67.0\n"
+      "num_perimeterpoints 3\n"
+      "exit  67.0.2  22.1.1  /* leaving Blue zone south onto Mississippi */\n"
+      "67.0.1  34.581322 -117.362619\n"
+      "67.0.2  34.581078 -117.361760\n"
+      "67.0.3  34.580865 -117.361852\n"
+      "end_perimeter\n"
+      "spot  67.1\n"
+      "spot_width  12\n"
+      "checkpoint  67.1.2  76\n"
+      "67.1.1  34.583721 -117.368955 /* Finish Spot Waypoint */\n"
+      "67.1.2  34.583738 -117.368955 /* Finish Spot Checkpoint */\n"
+      "end_spot\n"
+      "spot  67.3\n"
+      "spot_width  12\n"
+      "checkpoint  67.3.2  76\n"
+      "67.3.1  34.583721 -117.368955 /* Finish Spot Waypoint */\n"
+      "67.3.2  34.583738 -117.368955 /* Finish Spot Checkpoint */\n"
+      "end_spot\n"
+      "end_zone\n"
+                                                    , false, 1, 23),
+    // Invalid perimeter.
+    std::make_tuple(
+      "\n/* comment */\n"
+      "zone  67\n"
+      "num_spots 0\n"
+      "perimeter 67.0\n"
+      "num_perimeterpoints 5\n"
+      "exit  67.0.2  22.1.1  /* leaving Blue zone south onto Mississippi */\n"
+      "67.0.1  34.581322 -117.362619\n"
+      "67.0.2  34.581078 -117.361760\n"
+      "67.0.3  34.580865 -117.361852\n"
+      "end_perimeter\n"
+      "end_zone\n"
+                                                    , false, 1, 11),
     // No options.
     std::make_tuple(
       "\n/* comment */\n"

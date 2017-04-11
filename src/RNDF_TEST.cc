@@ -308,6 +308,11 @@ TEST(RNDF, loadSamples)
     ASSERT_TRUE(spotInfo->Lane() == nullptr);
     ASSERT_TRUE(spotInfo->Zone() != nullptr);
     EXPECT_EQ(spotInfo->Zone()->Id(), 61);
+
+    // This point does not exist.
+    rndf::UniqueId unknownId(99, 1, 2);
+    nodeInfo = rndf.Info(unknownId);
+    EXPECT_EQ(nodeInfo, nullptr);
   }
 }
 
@@ -463,7 +468,7 @@ TEST_F(RNDFTest, load)
       "creation_date /* comment */\n"
       "segment 1\n"
                                                     , false, 0),
-    // Repeated format_version value.
+    // Repeated creation_date value.
     std::make_tuple(
       "\n\n"
       "RNDF_name roadA /* A comment */\n"

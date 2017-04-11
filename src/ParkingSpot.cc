@@ -120,7 +120,7 @@ bool ParkingSpotHeader::Load(std::ifstream &_rndfFile, const int _zoneId,
     if (tokens[0] == "spot_width")
     {
       int widthFeet;
-      if (!parseNonNegative(lineread, "spot_width", widthFeet))
+      if (!parsePositive(lineread, "spot_width", widthFeet))
       {
         std::cerr << "[Line " << _lineNumber << "]: Unable to parse "
                   << "spot width element" << std::endl;
@@ -255,6 +255,7 @@ bool ParkingSpot::Load(std::ifstream &_rndfFile, const int _zoneId,
   }
   catch(...)
   {
+    std::cout << "Exception catched" << std::endl;
     std::cerr << "[Line " << _lineNumber << "]: Unable to parse spot element"
               << std::endl;
     std::cerr << " \"" << lineread << "\"" << std::endl;

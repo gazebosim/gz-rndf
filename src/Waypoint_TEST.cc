@@ -189,6 +189,16 @@ TEST_F(WaypointTest, load)
       "\n\n"
       "0.3.1 34.579979 -117.365607\n"
                                                     , false, 3, 3),
+    // Invalid waypoint Id.
+    std::make_tuple(
+      "\n\n"
+      "6.3.-1 34.579979 -117.365607\n"
+                                                    , false, 3, 3),
+    // Invalid waypoint Id.
+    std::make_tuple(
+      "\n\n"
+      "6.3.32769 34.579979 -117.365607\n"
+                                                    , false, 3, 3),
 
     // Unexpected waypoint Id (it should be 6.
     std::make_tuple(

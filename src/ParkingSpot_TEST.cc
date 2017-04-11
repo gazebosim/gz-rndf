@@ -165,6 +165,10 @@ TEST(ParkingSpot, checkpoints)
   Checkpoint cp2;
   cp2 = spot.Checkpoint();
   EXPECT_EQ(cp, cp2);
+
+  const Checkpoint &cp3 = static_cast<const Checkpoint &>(
+    spot.Checkpoint());
+  EXPECT_EQ(cp, cp3);
 }
 
 //////////////////////////////////////////////////
@@ -215,6 +219,12 @@ TEST(ParkingSpot, valid)
     wp3.SetId(3);
     wp3.Location() = sc;
     EXPECT_FALSE(spot.AddWaypoint(wp3));
+
+    // Make the waypoints non-consecutive.
+    spot.RemoveWaypoint(2);
+    wp2.SetId(3);
+    EXPECT_TRUE(spot.AddWaypoint(wp2));
+    EXPECT_FALSE(spot.Valid());
   }
 }
 
@@ -307,6 +317,25 @@ TEST_F(ParkingSpotTest, load)
       "61.1.2  34.587347 -117.366275\n"
       "end_spot"
                                                     , false, 4, 3),
+    // Invalid spot Id.
+    std::make_tuple(
+      "\n\n"
+      "spot 61.xx\n"
+      "checkpoint  61.1.2  130\n"
+      "61.1.1  34.587347 -117.366326\n"
+      "61.1.2  34.587347 -117.366275\n"
+      "end_spot"
+                                                    , false, 4, 3),
+
+    // Invalid spot Id.
+    std::make_tuple(
+      "\n\n"
+      "spot 61.-1\n"
+      "checkpoint  61.1.2  130\n"
+      "61.1.1  34.587347 -117.366326\n"
+      "61.1.2  34.587347 -117.366275\n"
+      "end_spot"
+                                                    , false, 4, 3),
     // Waypoints missing.
     std::make_tuple(
       "\n\n"
@@ -341,6 +370,14 @@ TEST_F(ParkingSpotTest, load)
       "61.1.2  34.587347 -117.366275\n"
       "end_spot\n"
                                                     , false, 8, 5),
+    // Non-consecutive waypoints.
+    std::make_tuple(
+      "\n/* comment */\n"
+      "spot 61.1/* comment */\n"
+      "61.1.1  34.587347 -117.366326/* comment */\n"
+      "61.1.3  34.587347 -117.366275 /* comment */  \n"
+      "end_spot\n"
+                                                    , false, 8, 5),
     // Missing "end_spot" terminator.
     std::make_tuple(
       "\n\n"
@@ -358,6 +395,24 @@ TEST_F(ParkingSpotTest, load)
       "61.1.2  34.587347 -117.366275\n"
       "spot"
                                                     , false, 10, 7),
+    // Invalid width option.
+    std::make_tuple(
+      "\n\n"
+      "spot 61.1\n"
+      "spot_width  0\n"
+      "61.1.1  34.587347 -117.366326\n"
+      "61.1.2  34.587347 -117.366275\n"
+      "end_spot\n"
+                                                    , false, 10, 4),
+    // Invalid checkpoint option.
+    std::make_tuple(
+      "\n/* comment */\n"
+      "spot 61.1/* comment */\n"
+      "checkpoint  62.1.2  130 /* comment */\n"
+      "61.1.1  34.587347 -117.366326/* comment */\n"
+      "61.1.2  34.587347 -117.366275 /* comment */  \n"
+      "end_spot\n"
+                                                    , false, 10, 4),
     // No options.
     std::make_tuple(
       "\n/* comment */\n"
