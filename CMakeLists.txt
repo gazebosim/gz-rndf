@@ -10,6 +10,14 @@ set (PROJECT_MAJOR_VERSION 0)
 set (PROJECT_MINOR_VERSION 1)
 set (PROJECT_PATCH_VERSION 0)
 
+set(PROJECT_NAME_NO_VERSION "ignition-${IGN_PROJECT_NAME}")
+string (TOLOWER ${PROJECT_NAME_NO_VERSION} PROJECT_NAME_NO_VERSION_LOWER)
+string (TOUPPER ${PROJECT_NAME_NO_VERSION} PROJECT_NAME_NO_VERSION_UPPER)
+string (TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
+string (TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
+set(PROJECT_EXPORT_NAME ${PROJECT_NAME_LOWER})
+set(PROJECT_LIBRARY_TARGET_NAME ${PROJECT_NAME_LOWER})
+
 set (PROJECT_VERSION ${PROJECT_MAJOR_VERSION}.${PROJECT_MINOR_VERSION})
 set (PROJECT_VERSION_FULL ${PROJECT_MAJOR_VERSION}.${PROJECT_MINOR_VERSION}.${PROJECT_PATCH_VERSION})
 
@@ -50,15 +58,6 @@ if (PACKAGE_SOURCE_ONLY)
   message(WARNING "Configuration was done in PACKAGE_SOURCE_ONLY mode."
   "You can build a tarball (make package_source), but nothing else.")
   return()
-endif()
-
-# Fix path format (if variables are specified).
-# On windows this will replace backslashes with forward slashes
-if (ZeroMQ_ROOT_DIR)
-  file(TO_CMAKE_PATH ${ZeroMQ_ROOT_DIR} ZeroMQ_ROOT_DIR)
-endif()
-if (CPPZMQ_HEADER_PATH)
-  file(TO_CMAKE_PATH ${CPPZMQ_HEADER_PATH} CPPZMQ_HEADER_PATH)
 endif()
 
 #################################################
