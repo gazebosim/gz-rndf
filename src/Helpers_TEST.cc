@@ -15,7 +15,7 @@
  *
 */
 
-#include "ignition/Helpers.hh"
+#include "ignition/rndf/Helpers.hh"
 #include "ignition/rndf/test_config.h"
 #include "gtest/gtest.h"
 

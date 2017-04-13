@@ -18,7 +18,7 @@
 #include <cstdlib>
 #include <string>
 
-#include "ignition/Helpers.hh"
+#include "ignition/rndf/Helpers.hh"
 
 namespace ignition
 {
