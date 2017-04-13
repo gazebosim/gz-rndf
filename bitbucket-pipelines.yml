@@ -12,7 +12,7 @@ pipelines:
           - apt-get update
           - apt-get -y install cmake pkg-config cppcheck doxygen ruby-ronn mercurial
           # Install Ignition Math.
-          - hg clone https://bitbucket.org/ignitionrobotics/ign-math -b ign-math2
+          - hg clone https://bitbucket.org/ignitionrobotics/ign-math -b ign-math3
           - cd ign-math
           - mkdir build && cd build
           - cmake -DCMAKE_INSTALL_PREFIX=/usr ..
