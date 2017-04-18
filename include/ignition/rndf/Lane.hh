@@ -116,7 +116,7 @@ namespace ignition
 
       /// \brief Get the number of checkpoints stored.
       /// \return The number of checkpoints in the current lane.
-      public: unsigned int NumCheckpoints() const;
+      public: size_t NumCheckpoints() const;
 
       /// \brief Get a mutable reference to the vector of checkpoints;
       /// \return A mutable reference to the vector of checkpoints.
@@ -159,7 +159,7 @@ namespace ignition
 
       /// \brief Get the number of stops stored.
       /// \return The number of stops in the current lane.
-      public: unsigned int NumStops() const;
+      public: size_t NumStops() const;
 
       /// \brief Get a mutable reference to the vector of stops. The elements
       /// are waypoint Ids.
@@ -190,7 +190,7 @@ namespace ignition
 
       /// \brief Get the number of exits stored.
       /// \return The number of exits in the current lane.
-      public: unsigned int NumExits() const;
+      public: size_t NumExits() const;
 
       /// \brief Get a mutable reference to the vector of exits.
       /// \return A mutable reference to the vector of exits.
@@ -274,7 +274,7 @@ namespace ignition
 
       /// \brief Get the number of waypoints stored.
       /// \return The number of waypoints in the current lane.
-      public: unsigned int NumWaypoints() const;
+      public: size_t NumWaypoints() const;
 
       /// \brief Get a mutable reference to the vector of waypoints.
       /// \return A mutable reference to the vector of waypoints.
@@ -348,7 +348,7 @@ namespace ignition
 
       /// \brief Get the number of checkpoints stored.
       /// \return The number of checkpoints in the current lane.
-      public: unsigned int NumCheckpoints() const;
+      public: size_t NumCheckpoints() const;
 
       /// \brief Get a mutable reference to the vector of checkpoints;
       /// \return A mutable reference to the vector of checkpoints.
@@ -390,7 +390,7 @@ namespace ignition
 
       /// \brief Get the number of stops stored.
       /// \return The number of stops in the current lane.
-      public: unsigned int NumStops() const;
+      public: size_t NumStops() const;
 
       /// \brief Get a mutable reference to the vector of stops. The elements
       /// are waypoint Ids.
@@ -421,7 +421,7 @@ namespace ignition
 
       /// \brief Get the number of exits stored.
       /// \return The number of exits in the current lane.
-      public: unsigned int NumExits() const;
+      public: size_t NumExits() const;
 
       /// \brief Get a mutable reference to the vector of exits.
       /// \return A mutable reference to the vector of exits.

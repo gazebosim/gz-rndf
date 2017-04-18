@@ -9,18 +9,15 @@ include (${project_cmake_dir}/Ronn2Man.cmake)
 add_manpage_target()
 
 ########################################
-# Find ignition math in unix platforms
-# In Windows we expect a call from configure.bat script with the paths
-if (NOT WIN32)
-  find_package(ignition-math3 QUIET)
-  if (NOT ignition-math3_FOUND)
-    message(STATUS "Looking for ignition-math3-config.cmake - not found")
-    BUILD_ERROR ("Missing: Ignition math3 library (libignition-math3-dev).")
-  else()
-    message(STATUS "Looking for ignition-math3-config.cmake - found")
-    include_directories(${IGNITION-MATH_INCLUDE_DIRS})
-    link_directories(${IGNITION-MATH_LIBRARY_DIRS})
-  endif()
+# Find ignition math
+find_package(ignition-math3 QUIET)
+if (NOT ignition-math3_FOUND)
+  message(STATUS "Looking for ignition-math3-config.cmake - not found")
+  BUILD_ERROR ("Missing: Ignition math3 library (libignition-math3-dev).")
+else()
+  message(STATUS "Looking for ignition-math3-config.cmake - found")
+  include_directories(${IGNITION-MATH_INCLUDE_DIRS})
+  link_directories(${IGNITION-MATH_LIBRARY_DIRS})
 endif()
 
 #################################################

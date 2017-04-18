@@ -146,7 +146,7 @@ namespace ignition
 
       /// \brief Get the number of waypoints stored.
       /// \return The number of waypoints in the current parking spot.
-      public: unsigned int NumWaypoints() const;
+      public: size_t NumWaypoints() const;
 
       /// \brief Get a mutable reference to the vector of waypoints;
       /// \return A mutable reference to the vector of waypoints.

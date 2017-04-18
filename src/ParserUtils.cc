@@ -76,7 +76,7 @@ namespace ignition
     {
       std::vector<std::string> tokens;
       char *saveptr;
-      char *str = strdup(_str.c_str());
+      char *str = _strdup(_str.c_str());
 
       auto token = ignition_strtok(str, _delim.c_str(), &saveptr);
 

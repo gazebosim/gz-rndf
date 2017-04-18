@@ -322,7 +322,7 @@ bool ParkingSpot::SetId(const int _id)
 }
 
 //////////////////////////////////////////////////
-unsigned int ParkingSpot::NumWaypoints() const
+size_t ParkingSpot::NumWaypoints() const
 {
   return this->dataPtr->waypoints.size();
 }
