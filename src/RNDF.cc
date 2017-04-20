@@ -259,8 +259,8 @@ bool RNDF::Load(const std::string &_filePath)
       return false;
 
     // Check that all zones are consecutive.
-    int expectedZoneId = segments.size() + i + 1;
-    if (zone.Id() != expectedZoneId)
+    size_t expectedZoneId = segments.size() + i + 1;
+    if (static_cast<size_t>(zone.Id()) != expectedZoneId)
     {
       std::cerr << "[Line " << lineNumber << "]: Found non-consecutive zone "
                 << "Id [" << zone.Id() << "]" << std::endl;
@@ -502,9 +502,9 @@ bool RNDF::Valid() const
 
   for (auto i = 0u; i < this->NumZones(); ++i)
   {
-    int expectedZoneId = this->NumSegments() + i + 1;
+    size_t expectedZoneId = this->NumSegments() + i + 1;
     const rndf::Zone &z = this->Zones().at(i);
-    if (!z.Valid() || z.Id() != expectedZoneId)
+    if (!z.Valid() || static_cast<size_t>(z.Id()) != expectedZoneId)
       return false;
   }
 
