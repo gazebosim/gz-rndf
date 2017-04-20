@@ -58,7 +58,7 @@ namespace ignition
       public: LaneHeader();
 
       /// \brief Destructor.
-      public: ~LaneHeader() = default;
+      public: virtual ~LaneHeader();
 
       ///////////
       /// Parsing

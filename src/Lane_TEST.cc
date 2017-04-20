@@ -1036,7 +1036,7 @@ TEST_F(LaneTest, Load)
         case 1:
           EXPECT_EQ(lane.Id(), 1);
           ASSERT_EQ(lane.NumWaypoints(), 5u);
-          EXPECT_FLOAT_EQ(lane.Width(), 0);
+          EXPECT_DOUBLE_EQ(lane.Width(), 0);
           EXPECT_EQ(lane.LeftBoundary(), Marking::UNDEFINED);
           EXPECT_EQ(lane.RightBoundary(), Marking::UNDEFINED);
           EXPECT_EQ(lane.NumCheckpoints(), 0u);
@@ -1045,7 +1045,7 @@ TEST_F(LaneTest, Load)
         case 2:
           EXPECT_EQ(lane.Id(), 1);
           ASSERT_EQ(lane.NumWaypoints(), 5u);
-          EXPECT_FLOAT_EQ(lane.Width(), 15 * 0.3048);
+          EXPECT_DOUBLE_EQ(lane.Width(), 15 * 0.3048);
           EXPECT_EQ(lane.LeftBoundary(), Marking::UNDEFINED);
           EXPECT_EQ(lane.RightBoundary(), Marking::UNDEFINED);
           EXPECT_EQ(lane.NumCheckpoints(), 0u);
@@ -1054,7 +1054,7 @@ TEST_F(LaneTest, Load)
         case 3:
           EXPECT_EQ(lane.Id(), 1);
           ASSERT_EQ(lane.NumWaypoints(), 5u);
-          EXPECT_FLOAT_EQ(lane.Width(), 0);
+          EXPECT_DOUBLE_EQ(lane.Width(), 0);
           EXPECT_EQ(lane.LeftBoundary(), Marking::DOUBLE_YELLOW);
           EXPECT_EQ(lane.RightBoundary(), Marking::SOLID_YELLOW);
           EXPECT_EQ(lane.NumCheckpoints(), 0u);
@@ -1063,7 +1063,7 @@ TEST_F(LaneTest, Load)
         case 4:
           EXPECT_EQ(lane.Id(), 1);
           ASSERT_EQ(lane.NumWaypoints(), 5u);
-          EXPECT_FLOAT_EQ(lane.Width(), 15 * 0.3048);
+          EXPECT_DOUBLE_EQ(lane.Width(), 15 * 0.3048);
           EXPECT_EQ(lane.LeftBoundary(), Marking::UNDEFINED);
           EXPECT_EQ(lane.RightBoundary(), Marking::UNDEFINED);
           EXPECT_EQ(lane.NumCheckpoints(), 2u);
@@ -1073,7 +1073,7 @@ TEST_F(LaneTest, Load)
         case 5:
           EXPECT_EQ(lane.Id(), 1);
           ASSERT_EQ(lane.NumWaypoints(), 5u);
-          EXPECT_FLOAT_EQ(lane.Width(), 15 * 0.3048);
+          EXPECT_DOUBLE_EQ(lane.Width(), 15 * 0.3048);
           EXPECT_EQ(lane.LeftBoundary(), Marking::UNDEFINED);
           EXPECT_EQ(lane.RightBoundary(), Marking::UNDEFINED);
           EXPECT_EQ(lane.NumCheckpoints(), 2u);
@@ -1083,7 +1083,7 @@ TEST_F(LaneTest, Load)
         case 6:
           EXPECT_EQ(lane.Id(), 1);
           ASSERT_EQ(lane.NumWaypoints(), 5u);
-          EXPECT_FLOAT_EQ(lane.Width(), 15 * 0.3048);
+          EXPECT_DOUBLE_EQ(lane.Width(), 15 * 0.3048);
           EXPECT_EQ(lane.LeftBoundary(), Marking::DOUBLE_YELLOW);
           EXPECT_EQ(lane.RightBoundary(), Marking::SOLID_YELLOW);
           EXPECT_EQ(lane.NumCheckpoints(), 2u);

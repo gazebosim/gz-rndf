@@ -84,8 +84,12 @@ ZoneHeader::ZoneHeader()
 }
 
 //////////////////////////////////////////////////
-bool ZoneHeader::Load(std::ifstream &_rndfFile, const int _zoneId,
-  int &_lineNumber)
+ZoneHeader::~ZoneHeader()
+{
+}
+
+//////////////////////////////////////////////////
+bool ZoneHeader::Load(std::ifstream &_rndfFile, int &_lineNumber)
 {
   auto oldPos = _rndfFile.tellg();
   int oldLineNumber = _lineNumber;
@@ -174,7 +178,7 @@ bool Zone::Load(std::ifstream &_rndfFile, int &_lineNumber)
 
   // Parse the optional zone header.
   ZoneHeader header;
-  if (!header.Load(_rndfFile, zoneId, _lineNumber))
+  if (!header.Load(_rndfFile, _lineNumber))
     return false;
 
   // Parse the perimeter.
@@ -230,7 +234,7 @@ bool Zone::SetId(const int _id)
 }
 
 //////////////////////////////////////////////////
-unsigned int Zone::NumSpots() const
+size_t Zone::NumSpots() const
 {
   return this->dataPtr->spots.size();
 }

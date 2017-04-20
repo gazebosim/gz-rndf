@@ -97,6 +97,11 @@ LaneHeader::LaneHeader()
 }
 
 //////////////////////////////////////////////////
+LaneHeader::~LaneHeader()
+{
+}
+
+//////////////////////////////////////////////////
 bool LaneHeader::Load(std::ifstream &_rndfFile, const int _segmentId,
   const int _laneId, int &_lineNumber)
 {

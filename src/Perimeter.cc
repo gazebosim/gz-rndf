@@ -75,6 +75,11 @@ PerimeterHeader::PerimeterHeader()
 }
 
 //////////////////////////////////////////////////
+PerimeterHeader::~PerimeterHeader()
+{
+}
+
+//////////////////////////////////////////////////
 bool PerimeterHeader::Load(std::ifstream &_rndfFile, const int _zoneId,
   const int _perimeterId, int &_lineNumber)
 {
@@ -99,7 +104,7 @@ bool PerimeterHeader::Load(std::ifstream &_rndfFile, const int _zoneId,
 }
 
 //////////////////////////////////////////////////
-unsigned int PerimeterHeader::NumExits() const
+size_t PerimeterHeader::NumExits() const
 {
   return this->dataPtr->exits.size();
 }
@@ -209,7 +214,7 @@ bool Perimeter::Load(std::ifstream &_rndfFile, const int _zoneId,
 
   // Parse optional perimeter header.
   PerimeterHeader header;
-  !header.Load(_rndfFile, _zoneId, 0, _lineNumber);
+  header.Load(_rndfFile, _zoneId, 0, _lineNumber);
 
   // Parse the perimeter points.
   std::vector<rndf::Waypoint> perimeterPoints;
@@ -241,7 +246,7 @@ bool Perimeter::Load(std::ifstream &_rndfFile, const int _zoneId,
 }
 
 //////////////////////////////////////////////////
-unsigned int Perimeter::NumPoints() const
+size_t Perimeter::NumPoints() const
 {
   return this->dataPtr->points.size();
 }
@@ -323,7 +328,7 @@ bool Perimeter::RemovePoint(const int _wpId)
 }
 
 //////////////////////////////////////////////////
-unsigned int Perimeter::NumExits() const
+size_t Perimeter::NumExits() const
 {
   return this->dataPtr->header.NumExits();
 }

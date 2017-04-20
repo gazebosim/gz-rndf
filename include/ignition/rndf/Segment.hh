@@ -42,7 +42,7 @@ namespace ignition
       public: SegmentHeader();
 
       /// \brief Destructor.
-      public: ~SegmentHeader() = default;
+      public: virtual ~SegmentHeader();
 
       ///////////
       /// Parsing
@@ -51,13 +51,11 @@ namespace ignition
       /// \brief Load a segment header from an input stream coming from a
       /// text file. The expected format is the one specified on the RNDF spec.
       /// \param[in, out] _rndfFile Input file stream.
-      /// \param[in] _segmentId The next expected segment Id.
       /// \param[in, out] _lineNumber Line number pointed by the stream position
       /// indicator.
       /// \return True if a segment header block was found and parsed or
       /// false otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,
-                        const int _segmentId,
                         int &_lineNumber);
 
       ////////
@@ -133,7 +131,7 @@ namespace ignition
 
       /// \brief Get the number of lanes stored.
       /// \return The number of lanes in this segment.
-      public: unsigned int NumLanes() const;
+      public: size_t NumLanes() const;
 
       /// \brief Get a mutable reference to the vector of lanes.
       /// \return A mutable reference to the vector of lanes.

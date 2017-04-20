@@ -43,7 +43,7 @@ namespace ignition
       public: ZoneHeader();
 
       /// \brief Destructor.
-      public: ~ZoneHeader() = default;
+      public: virtual ~ZoneHeader();
 
       ///////////
       /// Parsing
@@ -52,13 +52,11 @@ namespace ignition
       /// \brief Load a zone header from an input stream coming from a
       /// text file. The expected format is the one specified on the RNDF spec.
       /// \param[in, out] _rndfFile Input file stream.
-      /// \param[in] _zoneId The expected zone Id.
       /// \param[in, out] _lineNumber Line number pointed by the stream position
       /// indicator.
       /// \return True if a zone header block was found and parsed or
       /// false otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,
-                        const int _zoneId,
                         int &_lineNumber);
 
       ////////
@@ -136,7 +134,7 @@ namespace ignition
 
       /// \brief Get the number of parking spots stored.
       /// \return The number of parking spots in the current zone.
-      public: unsigned int NumSpots() const;
+      public: size_t NumSpots() const;
 
       /// \brief Get a mutable reference to the vector of parking spots.
       /// \return A mutable reference to the vector of parking spots.

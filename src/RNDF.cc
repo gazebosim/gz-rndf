@@ -97,6 +97,11 @@ RNDFHeader::RNDFHeader()
 }
 
 //////////////////////////////////////////////////
+RNDFHeader::~RNDFHeader()
+{
+}
+
+//////////////////////////////////////////////////
 bool RNDFHeader::Load(std::ifstream &_rndfFile, int &_lineNumber)
 {
   bool versionFound = false;
@@ -255,7 +260,7 @@ bool RNDF::Load(const std::string &_filePath)
       return false;
 
     // Check that all zones are consecutive.
-    int expectedZoneId = segments.size() + i + 1;
+    size_t expectedZoneId = segments.size() + i + 1;
     if (zone.Id() != expectedZoneId)
     {
       std::cerr << "[Line " << lineNumber << "]: Found non-consecutive zone "
@@ -297,7 +302,7 @@ void RNDF::SetName(const std::string &_name)
 }
 
 //////////////////////////////////////////////////
-unsigned int RNDF::NumSegments() const
+size_t RNDF::NumSegments() const
 {
   return this->dataPtr->segments.size();
 }
@@ -378,7 +383,7 @@ bool RNDF::RemoveSegment(const int _segmentId)
 }
 
 //////////////////////////////////////////////////
-unsigned int RNDF::NumZones() const
+size_t RNDF::NumZones() const
 {
   return this->dataPtr->zones.size();
 }
@@ -498,7 +503,7 @@ bool RNDF::Valid() const
 
   for (auto i = 0u; i < this->NumZones(); ++i)
   {
-    int expectedZoneId = this->NumSegments() + i + 1;
+    size_t expectedZoneId = this->NumSegments() + i + 1;
     const rndf::Zone &z = this->Zones().at(i);
     if (!z.Valid() || z.Id() != expectedZoneId)
       return false;

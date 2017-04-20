@@ -42,7 +42,7 @@ namespace ignition
       public: ParkingSpotHeader();
 
       /// \brief Destructor.
-      public: ~ParkingSpotHeader() = default;
+      public: virtual ~ParkingSpotHeader();
 
       ///////////
       /// Parsing

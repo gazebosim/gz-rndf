@@ -81,8 +81,12 @@ SegmentHeader::SegmentHeader()
 }
 
 //////////////////////////////////////////////////
-bool SegmentHeader::Load(std::ifstream &_rndfFile, const int _segmentId,
-  int &_lineNumber)
+SegmentHeader::~SegmentHeader()
+{
+}
+
+//////////////////////////////////////////////////
+bool SegmentHeader::Load(std::ifstream &_rndfFile, int &_lineNumber)
 {
   auto oldPos = _rndfFile.tellg();
   int oldLineNumber = _lineNumber;
@@ -168,7 +172,7 @@ bool Segment::Load(std::ifstream &_rndfFile, int &_lineNumber)
 
   // Parse optional segment header (containing the segment name).
   SegmentHeader header;
-  if (!header.Load(_rndfFile, segmentId, _lineNumber))
+  if (!header.Load(_rndfFile, _lineNumber))
     return false;
 
   std::vector<rndf::Lane> lanes;
@@ -218,7 +222,7 @@ bool Segment::SetId(const int _id)
 }
 
 //////////////////////////////////////////////////
-unsigned int Segment::NumLanes() const
+size_t Segment::NumLanes() const
 {
   return this->dataPtr->lanes.size();
 }

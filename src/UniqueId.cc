@@ -63,7 +63,7 @@ UniqueId::UniqueId(const std::string &_id)
   try
   {
     for (int i = 0; i < 3; ++i)
-      data[i] = std::stod(tokens[i], &(sz[i]));
+      data[i] = std::stoi(tokens[i], &(sz[i]));
   } catch (...)
   {
     std::cerr << "Unable to parse uniqueId [" << _id << "]" << std::endl;

@@ -88,6 +88,11 @@ ParkingSpotHeader::ParkingSpotHeader()
 }
 
 //////////////////////////////////////////////////
+ParkingSpotHeader::~ParkingSpotHeader()
+{
+}
+
+//////////////////////////////////////////////////
 bool ParkingSpotHeader::Load(std::ifstream &_rndfFile, const int _zoneId,
   const int _spotId, int &_lineNumber)
 {

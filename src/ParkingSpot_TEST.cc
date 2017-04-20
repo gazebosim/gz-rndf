@@ -482,7 +482,7 @@ TEST_F(ParkingSpotTest, load)
           ASSERT_EQ(spot.NumWaypoints(), 2u);
           EXPECT_EQ(spot.Waypoints().at(0), waypoint1);
           EXPECT_EQ(spot.Waypoints().at(1), waypoint2);
-          EXPECT_FLOAT_EQ(spot.Width(), 0);
+          EXPECT_DOUBLE_EQ(spot.Width(), 0);
           EXPECT_FALSE(spot.Checkpoint().Valid());
           break;
         case 12:
@@ -490,7 +490,7 @@ TEST_F(ParkingSpotTest, load)
           ASSERT_EQ(spot.NumWaypoints(), 2u);
           EXPECT_EQ(spot.Waypoints().at(0), waypoint1);
           EXPECT_EQ(spot.Waypoints().at(1), waypoint2);
-          EXPECT_FLOAT_EQ(spot.Width(), 0);
+          EXPECT_DOUBLE_EQ(spot.Width(), 0);
           EXPECT_EQ(spot.Checkpoint(), checkpoint);
           break;
         case 13:
@@ -498,7 +498,7 @@ TEST_F(ParkingSpotTest, load)
           ASSERT_EQ(spot.NumWaypoints(), 2u);
           EXPECT_EQ(spot.Waypoints().at(0), waypoint1);
           EXPECT_EQ(spot.Waypoints().at(1), waypoint2);
-          EXPECT_FLOAT_EQ(spot.Width(), spotWidth);
+          EXPECT_DOUBLE_EQ(spot.Width(), spotWidth);
           EXPECT_FALSE(spot.Checkpoint().Valid());
           break;
         case 14:
@@ -507,7 +507,7 @@ TEST_F(ParkingSpotTest, load)
           EXPECT_EQ(spot.Waypoints().at(0), waypoint1);
           EXPECT_EQ(spot.Waypoints().at(1), waypoint2);
           EXPECT_EQ(spot.Checkpoint(), checkpoint);
-          EXPECT_FLOAT_EQ(spot.Width(), spotWidth);
+          EXPECT_DOUBLE_EQ(spot.Width(), spotWidth);
           break;
         default:
           break;
