@@ -97,6 +97,11 @@ LaneHeader::LaneHeader()
 }
 
 //////////////////////////////////////////////////
+LaneHeader::~LaneHeader()
+{
+}
+
+//////////////////////////////////////////////////
 bool LaneHeader::Load(std::ifstream &_rndfFile, const int _segmentId,
   const int _laneId, int &_lineNumber)
 {
@@ -281,7 +286,7 @@ void LaneHeader::SetRightBoundary(const Marking &_boundary)
 }
 
 //////////////////////////////////////////////////
-unsigned int LaneHeader::NumCheckpoints() const
+size_t LaneHeader::NumCheckpoints() const
 {
   return this->dataPtr->checkpoints.size();
 }
@@ -366,7 +371,7 @@ bool LaneHeader::RemoveCheckpoint(const int _cpId)
 }
 
 //////////////////////////////////////////////////
-unsigned int LaneHeader::NumStops() const
+size_t LaneHeader::NumStops() const
 {
   return this->dataPtr->stops.size();
 }
@@ -416,7 +421,7 @@ bool LaneHeader::RemoveStop(const int _waypointId)
 }
 
 //////////////////////////////////////////////////
-unsigned int LaneHeader::NumExits() const
+size_t LaneHeader::NumExits() const
 {
   return this->dataPtr->exits.size();
 }
@@ -613,7 +618,7 @@ bool Lane::SetId(const int _id)
 }
 
 //////////////////////////////////////////////////
-unsigned int Lane::NumWaypoints() const
+size_t Lane::NumWaypoints() const
 {
   return this->dataPtr->waypoints.size();
 }
@@ -731,7 +736,7 @@ void Lane::SetRightBoundary(const Marking &_boundary)
 }
 
 //////////////////////////////////////////////////
-unsigned int Lane::NumCheckpoints() const
+size_t Lane::NumCheckpoints() const
 {
   return this->dataPtr->header.NumCheckpoints();
 }
@@ -773,7 +778,7 @@ bool Lane::RemoveCheckpoint(const int _cpId)
 }
 
 //////////////////////////////////////////////////
-unsigned int Lane::NumStops() const
+size_t Lane::NumStops() const
 {
   return this->dataPtr->header.NumStops();
 }
@@ -803,7 +808,7 @@ bool Lane::RemoveStop(const int _waypointId)
 }
 
 //////////////////////////////////////////////////
-unsigned int Lane::NumExits() const
+size_t Lane::NumExits() const
 {
   return this->dataPtr->header.NumExits();
 }

@@ -45,7 +45,7 @@ namespace ignition
       public: RNDFHeader();
 
       /// \brief Destructor.
-      public: ~RNDFHeader() = default;
+      public: virtual ~RNDFHeader();
 
       ///////////
       /// Parsing
@@ -133,7 +133,7 @@ namespace ignition
 
       /// \brief Get the number of segments stored.
       /// \return The number of segments in this RNDF.
-      public: unsigned int NumSegments() const;
+      public: size_t NumSegments() const;
 
       /// \brief Get a mutable reference to the vector of segments.
       /// \return A mutable reference to the vector of segments.
@@ -175,7 +175,7 @@ namespace ignition
 
       /// \brief Get the number of zones stored.
       /// \return The number of zones in this RNDF.
-      public: unsigned int NumZones() const;
+      public: size_t NumZones() const;
 
       /// \brief Get a mutable reference to the vector of zones.
       /// \return A mutable reference to the vector of zones.

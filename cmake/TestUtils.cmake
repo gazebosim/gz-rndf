@@ -24,6 +24,15 @@ macro (ign_build_tests)
       gtest gtest_main
     )
 
+    if (MSVC)
+      # Copy the Ignition MATH DLL.
+      add_custom_command(TARGET ${BINARY_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${IGNITION-MATH_FOLDER}/lib/${IGNITION-MATH_LIBRARIES}.dll"
+        ${CMAKE_CURRENT_BINARY_DIR} VERBATIM)
+    endif()
+
+
     target_link_libraries(${BINARY_NAME}
       ${PROJECT_NAME_LOWER}${PROJECT_MAJOR_VERSION}
     )

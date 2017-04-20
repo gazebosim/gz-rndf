@@ -30,9 +30,11 @@
 #include "ignition/rndf/Waypoint.hh"
 
 #ifdef _WIN32
-  const auto& ignition_strtok = strtok_s;
+  const auto& ignition_rndf_strtok = strtok_s;
+  const auto& ignition_rndf_strdup = _strdup;
 #else
-  const auto& ignition_strtok = strtok_r;
+  const auto& ignition_rndf_strtok = strtok_r;
+  const auto& ignition_rndf_strdup = strdup;
 #endif
 
 namespace ignition
@@ -76,14 +78,14 @@ namespace ignition
     {
       std::vector<std::string> tokens;
       char *saveptr;
-      char *str = strdup(_str.c_str());
+      char *str = ignition_rndf_strdup(_str.c_str());
 
-      auto token = ignition_strtok(str, _delim.c_str(), &saveptr);
+      auto token = ignition_rndf_strtok(str, _delim.c_str(), &saveptr);
 
       while (token)
       {
         tokens.push_back(token);
-        token = ignition_strtok(nullptr, _delim.c_str(), &saveptr);
+        token = ignition_rndf_strtok(nullptr, _delim.c_str(), &saveptr);
       }
 
       free(str);

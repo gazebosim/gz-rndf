@@ -88,6 +88,11 @@ ParkingSpotHeader::ParkingSpotHeader()
 }
 
 //////////////////////////////////////////////////
+ParkingSpotHeader::~ParkingSpotHeader()
+{
+}
+
+//////////////////////////////////////////////////
 bool ParkingSpotHeader::Load(std::ifstream &_rndfFile, const int _zoneId,
   const int _spotId, int &_lineNumber)
 {
@@ -322,7 +327,7 @@ bool ParkingSpot::SetId(const int _id)
 }
 
 //////////////////////////////////////////////////
-unsigned int ParkingSpot::NumWaypoints() const
+size_t ParkingSpot::NumWaypoints() const
 {
   return this->dataPtr->waypoints.size();
 }

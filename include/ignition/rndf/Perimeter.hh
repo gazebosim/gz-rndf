@@ -42,7 +42,7 @@ namespace ignition
       public: PerimeterHeader();
 
       /// \brief Destructor.
-      public: ~PerimeterHeader() = default;
+      public: virtual ~PerimeterHeader();
 
       ///////////
       /// Parsing
@@ -68,7 +68,7 @@ namespace ignition
 
       /// \brief Get the number of exits stored.
       /// \return The number of exits in the current lane.
-      public: unsigned int NumExits() const;
+      public: size_t NumExits() const;
 
       /// \brief Get a mutable reference to the vector of exits.
       /// \return A mutable reference to the vector of exits.
@@ -134,7 +134,7 @@ namespace ignition
 
       /// \brief Get the number of perimeter points stored.
       /// \return The number of perimeter points in the current perimeter.
-      public: unsigned int NumPoints() const;
+      public: size_t NumPoints() const;
 
       /// \brief Get a mutable reference to the vector of perimeter points.
       /// \return A mutable reference to the vector of perimeter points.
@@ -176,7 +176,7 @@ namespace ignition
 
       /// \brief Get the number of exits stored.
       /// \return The number of exits in the current lane.
-      public: unsigned int NumExits() const;
+      public: size_t NumExits() const;
 
       /// \brief Get a mutable reference to the vector of exits.
       /// \return A mutable reference to the vector of exits.
