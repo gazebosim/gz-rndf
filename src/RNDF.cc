@@ -202,8 +202,7 @@ RNDF::~RNDF()
 //////////////////////////////////////////////////
 bool RNDF::Load(const std::string &_filePath)
 {
-  std::ifstream rndfFile;
-  rndfFile.open(_filePath);
+  std::ifstream rndfFile(_filePath, std::ifstream::binary);
   if (!rndfFile.good())
   {
     std::cerr << "Error opening RNDF [" << _filePath << "]" << std::endl;
