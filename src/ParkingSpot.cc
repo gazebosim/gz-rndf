@@ -192,12 +192,6 @@ Checkpoint &ParkingSpotHeader::Checkpoint()
 }
 
 //////////////////////////////////////////////////
-const Checkpoint &ParkingSpotHeader::Checkpoint() const
-{
-  return this->dataPtr->checkpoint;
-}
-
-//////////////////////////////////////////////////
 ParkingSpot::ParkingSpot()
 {
   this->dataPtr.reset(new ParkingSpotPrivate(-1));

@@ -157,6 +157,14 @@ TEST(Lane, valid)
     EXPECT_TRUE(lane.AddWaypoint(wp));
 
     EXPECT_EQ(lane.Valid(), usecase.second);
+
+    if (lane.Valid())
+    {
+      // Adding a new non-consecutive waypoint is OK but the lane is not valid.
+      Waypoint wp2(waypointId + 2, sc);
+      EXPECT_TRUE(lane.AddWaypoint(wp2));
+      EXPECT_FALSE(lane.Valid());
+    }
   }
 }
 

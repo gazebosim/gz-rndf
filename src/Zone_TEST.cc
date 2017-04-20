@@ -196,6 +196,34 @@ TEST(Zone, Validation)
 
   EXPECT_TRUE(zone.Perimeter().AddPoint(wp));
   EXPECT_TRUE(zone.Valid());
+
+  // Create a valid parking spot.
+  ParkingSpot ps;
+  Waypoint wp1;
+  wp1.SetId(1);
+  wp1.Location() = sc;
+  Waypoint wp2;
+  wp2.SetId(2);
+  wp2.Location() = sc;
+  ps.SetId(1);
+  ps.AddWaypoint(wp1);
+  ps.AddWaypoint(wp2);
+  EXPECT_EQ(ps.NumWaypoints(), 2u);
+
+  // Add a valid parking spot.
+  EXPECT_TRUE(zone.AddSpot(ps));
+  EXPECT_EQ(zone.NumSpots(), 1u);
+  EXPECT_TRUE(zone.Valid());
+
+  // Adding a non-consecutive parking spot is OK but the zone is not valid.
+  ParkingSpot ps2;
+  ps2.SetId(3);
+  ps2.AddWaypoint(wp1);
+  ps2.AddWaypoint(wp2);
+  EXPECT_EQ(ps2.NumWaypoints(), 2u);
+  EXPECT_TRUE(zone.AddSpot(ps2));
+  EXPECT_EQ(zone.NumSpots(), 2u);
+  EXPECT_FALSE(zone.Valid());
 }
 
 //////////////////////////////////////////////////

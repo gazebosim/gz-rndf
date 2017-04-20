@@ -84,10 +84,6 @@ namespace ignition
       /// \return A mutable reference to the checkpoint.
       public: rndf::Checkpoint &Checkpoint();
 
-      /// \brief Get the checkpoint.
-      /// \return The checkpoint.
-      public: const rndf::Checkpoint &Checkpoint() const;
-
       /// \brief Smart pointer to private data.
       private: std::unique_ptr<ParkingSpotHeaderPrivate> dataPtr;
     };

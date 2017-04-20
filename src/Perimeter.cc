@@ -116,27 +116,14 @@ std::vector<Exit> &PerimeterHeader::Exits()
 }
 
 //////////////////////////////////////////////////
-const std::vector<Exit> &PerimeterHeader::Exits() const
-{
-  return this->dataPtr->exits;
-}
-
-//////////////////////////////////////////////////
 bool PerimeterHeader::AddExit(const Exit &_newExit)
 {
   // Validate the exit unique Id.
-  if (!_newExit.ExitId().Valid())
+  if (!_newExit.Valid())
   {
-    std::cerr << "PerimeterHeader::AddExit() Invalid exit Id: ["
-              << _newExit.ExitId() << "]" << std::endl;
-    return false;
-  }
-
-  // Validate the entry unique Id.
-  if (!_newExit.EntryId().Valid())
-  {
-    std::cerr << "PerimeterHeader::AddExit() Invalid entry Id: ["
-              << _newExit.EntryId() << "]" << std::endl;
+    std::cerr << "PerimeterHeader::AddExit() Invalid exit [("
+              << _newExit.ExitId() << ")(" << _newExit.EntryId()
+              << ")]" << std::endl;
     return false;
   }
 

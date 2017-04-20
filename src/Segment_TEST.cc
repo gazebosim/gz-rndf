@@ -173,8 +173,17 @@ TEST(Segment, Validation)
   // Add the lane to the segment
   EXPECT_TRUE(segment.AddLane(lane));
   EXPECT_EQ(segment.NumLanes(), 1u);
-
   EXPECT_TRUE(segment.Valid());
+
+  // Adding a new non-consecutive lane is OK but the segment is not valid.
+  Lane lane2(id + 2);
+  Waypoint wp2;
+  wp2.SetId(waypointId);
+  wp2.Location() = sc;
+  EXPECT_TRUE(lane2.AddWaypoint(wp2));
+  EXPECT_TRUE(segment.AddLane(lane2));
+  EXPECT_EQ(segment.NumLanes(), 2u);
+  EXPECT_FALSE(segment.Valid());
 }
 
 //////////////////////////////////////////////////

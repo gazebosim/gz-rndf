@@ -298,12 +298,6 @@ std::vector<rndf::Checkpoint> &LaneHeader::Checkpoints()
 }
 
 //////////////////////////////////////////////////
-const std::vector<rndf::Checkpoint> &LaneHeader::Checkpoints() const
-{
-  return this->dataPtr->checkpoints;
-}
-
-//////////////////////////////////////////////////
 bool LaneHeader::Checkpoint(const int _cpId, rndf::Checkpoint &_cp) const
 {
   auto it = std::find_if(this->dataPtr->checkpoints.begin(),
@@ -383,12 +377,6 @@ std::vector<int> &LaneHeader::Stops()
 }
 
 //////////////////////////////////////////////////
-const std::vector<int> &LaneHeader::Stops() const
-{
-  return this->dataPtr->stops;
-}
-
-//////////////////////////////////////////////////
 bool LaneHeader::AddStop(const int _waypointId)
 {
   // Validate the waypoint Id.
@@ -433,27 +421,14 @@ std::vector<Exit> &LaneHeader::Exits()
 }
 
 //////////////////////////////////////////////////
-const std::vector<Exit> &LaneHeader::Exits() const
-{
-  return this->dataPtr->exits;
-}
-
-//////////////////////////////////////////////////
 bool LaneHeader::AddExit(const Exit &_newExit)
 {
-  // Validate the exit unique Id.
-  if (!_newExit.ExitId().Valid())
+  // Validate the exit.
+  if (!_newExit.Valid())
   {
-    std::cerr << "[Lane::AddExit() Invalid exit Id: [" << _newExit.ExitId()
-              << "]" << std::endl;
-    return false;
-  }
-
-  // Validate the entry unique Id.
-  if (!_newExit.EntryId().Valid())
-  {
-    std::cerr << "[Lane::AddExit() Invalid entry Id: [" << _newExit.EntryId()
-              << "]" << std::endl;
+    std::cerr << "LaneHeader::AddExit() Invalid exit [("
+              << _newExit.ExitId() << ")(" << _newExit.EntryId()
+              << ")]" << std::endl;
     return false;
   }
 

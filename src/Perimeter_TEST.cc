@@ -74,6 +74,17 @@ TEST(Perimeter, points)
   EXPECT_EQ(perimeter.NumPoints(), 1u);
   EXPECT_TRUE(perimeter.Valid());
 
+  // Add a waypoint that is non consecutive is OK but the perimeter is not
+  // valid.
+  Waypoint wpNonConsecutive;
+  wpNonConsecutive.SetId(waypointId + 2);
+  wpNonConsecutive.Location() = sc;
+  EXPECT_TRUE(perimeter.AddPoint(wpNonConsecutive));
+  EXPECT_EQ(perimeter.NumPoints(), 2u);
+  EXPECT_FALSE(perimeter.Valid());
+  // Remove the point.
+  EXPECT_TRUE(perimeter.RemovePoint(waypointId + 2));
+
   // Get the point.
   Waypoint wp2;
   EXPECT_TRUE(perimeter.Point(wp.Id(), wp2));
@@ -116,6 +127,8 @@ TEST(Perimeter, checkExits)
   // Try to remove an inexistent exit.
   EXPECT_FALSE(perimeter.RemoveExit(Exit()));
   // Try to add an invalid exit.
+  EXPECT_FALSE(perimeter.AddExit(Exit()));
+  // Try to add an invalid exit (invalid entryId).
   EXPECT_FALSE(perimeter.AddExit(Exit()));
 
   // Add a valid exit.
@@ -179,6 +192,13 @@ TEST(Perimeter, equality)
   EXPECT_TRUE(perimeter1 == perimeter2);
   EXPECT_FALSE(perimeter1 != perimeter2);
 
+  // Modify one point in perimeter2.
+  perimeter2.Points().front().SetId(99);
+  EXPECT_TRUE(perimeter1 != perimeter2);
+  EXPECT_FALSE(perimeter1 == perimeter2);
+  // Restore the Id.
+  perimeter2.Points().front().SetId(1);
+
   // Add two exits to perimeter 1.
   EXPECT_TRUE(perimeter1.AddExit(exit1));
   EXPECT_TRUE(perimeter1.AddExit(exit2));
@@ -192,6 +212,11 @@ TEST(Perimeter, equality)
 
   EXPECT_TRUE(perimeter1 == perimeter2);
   EXPECT_FALSE(perimeter1 != perimeter2);
+
+  // Modify one exit.
+  perimeter2.Exits().front().ExitId().SetZ(99);
+  EXPECT_TRUE(perimeter1 != perimeter2);
+  EXPECT_FALSE(perimeter1 == perimeter2);
 }
 
 //////////////////////////////////////////////////
@@ -223,6 +248,35 @@ TEST(Perimeter, assignment)
   EXPECT_NE(perimeter1, perimeter2);
 
   perimeter2 = perimeter1;
+  EXPECT_EQ(perimeter1, perimeter2);
+}
+
+//////////////////////////////////////////////////
+/// \brief Check copy constructor.
+TEST(Perimeter, copyConstructor)
+{
+  // Create a valid waypoint.
+  ignition::math::SphericalCoordinates::SurfaceType st =
+    ignition::math::SphericalCoordinates::EARTH_WGS84;
+  ignition::math::Angle lat(0.3), lon(-1.2), heading(0.5);
+  double elev = 354.1;
+  ignition::math::SphericalCoordinates sc1(st, lat, lon, elev, heading);
+  int waypointId = 1;
+  Waypoint wp1;
+  wp1.SetId(waypointId);
+  wp1.Location() = sc1;
+
+  UniqueId exitId1(1, 2, 3);
+  UniqueId entryId1(4, 5, 6);
+
+  Exit exit1(exitId1, entryId1);
+
+  // Perimeter #1 (one point and one exit).
+  Perimeter perimeter1;
+  EXPECT_TRUE(perimeter1.AddPoint(wp1));
+  EXPECT_TRUE(perimeter1.AddExit(exit1));
+
+  Perimeter perimeter2(perimeter1);
   EXPECT_EQ(perimeter1, perimeter2);
 }
 

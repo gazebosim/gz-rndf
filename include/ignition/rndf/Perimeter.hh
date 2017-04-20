@@ -74,10 +74,6 @@ namespace ignition
       /// \return A mutable reference to the vector of exits.
       public: std::vector<Exit> &Exits();
 
-      /// \brief Get the vector of exits.
-      /// \return The vector of exits.
-      public: const std::vector<Exit> &Exits() const;
-
       /// \brief Add a new exit.
       /// \param[in] _newExit The exit to add.
       /// \return True when the exit was successfully added or

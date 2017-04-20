@@ -122,10 +122,6 @@ namespace ignition
       /// \return A mutable reference to the vector of checkpoints.
       public: std::vector<rndf::Checkpoint> &Checkpoints();
 
-      /// \brief Get the vector of checkpoints;
-      /// \return The vector of checkpoints.
-      public: const std::vector<rndf::Checkpoint> &Checkpoints() const;
-
       /// \brief Get the details of one of the checkpoints with Id _cpId.
       /// \param[in] _cpId The checkpoint Id.
       /// \param[out] _cp The checkpoint requested.
@@ -166,10 +162,6 @@ namespace ignition
       /// \return A mutable reference to the vector of stops.
       public: std::vector<int> &Stops();
 
-      /// \brief Get the vector of stops. The elements are waypoint Ids.
-      /// \return The vector of stops.
-      public: const std::vector<int> &Stops() const;
-
       /// \brief Add a new stop.
       /// \param[in] _waypointId The Id of a new waypoint considered a stop.
       /// \return True when the stop was successfully added to the list or
@@ -195,10 +187,6 @@ namespace ignition
       /// \brief Get a mutable reference to the vector of exits.
       /// \return A mutable reference to the vector of exits.
       public: std::vector<Exit> &Exits();
-
-      /// \brief Get the vector of stops.
-      /// \return The vector of stops.
-      public: const std::vector<Exit> &Exits() const;
 
       /// \brief Add a new exit.
       /// \param[in] _newExit The exit to add.
