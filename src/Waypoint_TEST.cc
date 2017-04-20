@@ -86,6 +86,13 @@ TEST(Waypoint, location)
   location.SetElevationReference(newElev);
   EXPECT_TRUE(
     ignition::math::equal(waypoint.Location().ElevationReference(), newElev));
+
+  // Non-mutable accessor.
+  const Waypoint nonMutableWaypoint(id, location);
+
+  // Check that I can read and modify the location with the mutable accessor.
+  auto &nonMutablelocation = nonMutableWaypoint.Location();
+  EXPECT_EQ(nonMutablelocation, location);
 }
 
 //////////////////////////////////////////////////

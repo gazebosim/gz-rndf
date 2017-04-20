@@ -181,6 +181,12 @@ bool Waypoint::SetId(const int _id)
 }
 
 //////////////////////////////////////////////////
+const ignition::math::SphericalCoordinates &Waypoint::Location() const
+{
+  return this->dataPtr->location;
+}
+
+//////////////////////////////////////////////////
 ignition::math::SphericalCoordinates &Waypoint::Location()
 {
   return this->dataPtr->location;

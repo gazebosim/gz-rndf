@@ -95,6 +95,10 @@ namespace ignition
       /// Location
       ////////////
 
+      /// \brief Get a non-mutable reference to the waypoint location.
+      /// \return A non-mutable reference to the waypoint location.
+      public: const ignition::math::SphericalCoordinates &Location() const;
+
       /// \brief Get a mutable reference to the waypoint location.
       /// \return A mutable reference to the waypoint location.
       public: ignition::math::SphericalCoordinates &Location();
