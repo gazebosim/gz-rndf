@@ -1,6 +1,6 @@
 prefix=@CMAKE_INSTALL_PREFIX@
 libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
-includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@/@PROJECT_NAME_LOWER@@PROJECT_MAJOR_VERSION@
+includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@/ignition/@IGN_PROJECT_NAME@@PROJECT_MAJOR_VERSION@
 
 Name: @PROJECT_NAME_LOWER@
 Description: Portable C++ library for parsing RNDF road network files.
