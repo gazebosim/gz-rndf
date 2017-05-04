@@ -34,6 +34,22 @@ namespace ignition
     class UniqueId;
     enum class Marking;
 
+    /// \brief An entry that captures an exit parsed.
+    struct ExitCacheEntry
+    {
+      /// \brief The exit Id.
+      public: std::string exitId;
+
+      /// \brief The entry Id.
+      public: std::string entryId;
+
+      /// \brief The line number in which the exit was located.
+      public: int lineNumber;
+
+      /// \brief The entire line containing the exit.
+      public: std::string line;
+    };
+
     /// \brief Remove comments, consecutive whitespaces (leaving onle one) and
     /// leading and trailing whitespaces.
     /// \param[in] _str Input string.

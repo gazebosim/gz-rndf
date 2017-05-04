@@ -23,6 +23,7 @@
 #include "gtest/gtest.h"
 #include "ignition/rndf/test_config.h"
 #include "ignition/rndf/Lane.hh"
+#include "ignition/rndf/ParserUtils.hh"
 #include "ignition/rndf/Segment.hh"
 #include "ignition/rndf/Waypoint.hh"
 
@@ -585,8 +586,11 @@ TEST_F(SegmentTest, Load)
 
     // Check expectations.
     Segment segment;
+    std::vector<ExitCacheEntry> exitCache;
+    std::vector<std::string> waypointCache;
     bool res;
-    EXPECT_EQ(res = segment.Load(f, line), expectedResult);
+    EXPECT_EQ(res = segment.Load(f, line, exitCache, waypointCache),
+      expectedResult);
     EXPECT_EQ(line, expectedLine);
     if (res)
     {
