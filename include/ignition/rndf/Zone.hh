@@ -109,6 +109,8 @@ namespace ignition
       /// \param[in, out] _rndfFile Input file stream.
       /// \param[in, out] _lineNumber Line number pointed by the stream position
       /// indicator.
+      /// \param[in, out] _exitCache Cache of exits parsed.
+      /// \param[in, out] _waypointCache Cache of waypoints parsed.
       /// \return True if a zone block was found and parsed or
       /// false otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,

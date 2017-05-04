@@ -88,10 +88,10 @@ namespace ignition
       /// the unique Id..
       public: std::map<std::string, rndf::RNDFNode> cache;
 
-      /// \brief ToDo.
+      /// \brief The cache of exits under parsing.
       public: std::vector<ExitCacheEntry> exitCache;
 
-      /// \brief ToDo.
+      /// \brief The cache of waypoints under parsing.
       public: std::vector<std::string> waypointCache;
     };
   }
@@ -290,7 +290,7 @@ bool RNDF::Load(const std::string &_filePath)
   rndfFile.close();
 
   // Sanity check: Validate all entries.
-  for (auto &exitElement : this->dataPtr->exitCache)
+  for (auto const &exitElement : this->dataPtr->exitCache)
   {
     if (std::find(this->dataPtr->waypointCache.begin(),
       this->dataPtr->waypointCache.end(), exitElement.entryId) ==

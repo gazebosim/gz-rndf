@@ -73,7 +73,7 @@ namespace ignition
       /// \param[in] _laneId The expected lane Id.
       /// \param[in, out] _lineNumber Line number pointed by the stream position
       /// indicator.
-      /// \param[in, out] _exitCache ToDo.
+      /// \param[in, out] _exitCache Cache of exits parsed.
       /// \return True if a lane header block was found and parsed or
       /// false otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,
@@ -239,6 +239,8 @@ namespace ignition
       /// \param[in, out] _segmentId Expected segment Id.
       /// \param[in, out] _lineNumber Line number pointed by the stream position
       /// indicator.
+      /// \param[in, out] _exitCache Cache of exits parsed.
+      /// \param[in, out] _waypointCache Cache of waypoints parsed.
       /// \return True if a lane block was found and parsed or
       /// false otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,

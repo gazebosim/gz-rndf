@@ -55,8 +55,10 @@ namespace ignition
       /// \param[in, out] _rndfFile Input file stream.
       /// \param[in] _zoneId The zone Id in which the spot is located.
       /// \param[in] _perimeterId The perimeter Id.
+      /// \param[in] _lineread The entire text line under parsing.
       /// \param[in, out] _lineNumber Line number pointed by the stream position
       /// indicator.
+      /// \param[in, out] _exitCache Cache of exits parsed.
       /// \return True if a perimeter header block was found and parsed or
       /// false otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,
@@ -122,6 +124,8 @@ namespace ignition
       /// \param[in] _zoneId The zone Id in which the perimeter is located.
       /// \param[in, out] _lineNumber Line number pointed by the stream position
       /// indicator.
+      /// \param[in, out] _exitCache Cache of exits parsed.
+      /// \param[in, out] _waypointCache Cache of waypoints parsed.
       /// \return True if a perimeter block was found and parsed or false
       /// otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,
