@@ -26,6 +26,8 @@
 #include "ignition/rndf/Lane.hh"
 #include "ignition/rndf/ParserUtils.hh"
 #include "ignition/rndf/Segment.hh"
+#include "ignition/rndf/UniqueId.hh"
+#include "ignition/rndf/Waypoint.hh"
 
 using namespace ignition;
 using namespace rndf;

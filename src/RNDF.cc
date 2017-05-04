@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 
+#include "ignition/rndf/Exit.hh"
 #include "ignition/rndf/Lane.hh"
 #include "ignition/rndf/ParkingSpot.hh"
 #include "ignition/rndf/ParserUtils.hh"
@@ -284,6 +285,26 @@ bool RNDF::Load(const std::string &_filePath)
   this->SetDate(header.Date());
 
   this->UpdateCache();
+
+  // Update the "entry" flag of the waypoints that are entry points.
+  for (auto &segment : this->Segments())
+    for (auto &lane : segment.Lanes())
+      for (auto &exit : lane.Exits())
+      {
+        std::string entryIdStr = exit.EntryId().String();
+        auto &rndfNode = this->dataPtr->cache[entryIdStr];
+        if (rndfNode.Waypoint())
+          rndfNode.Waypoint()->SetEntry(true);
+      }
+
+  for (auto &zone : this->Zones())
+    for (auto &exit : zone.Perimeter().Exits())
+    {
+      std::string entryIdStr = exit.EntryId().String();
+      auto &rndfNode = this->dataPtr->cache[entryIdStr];
+      if (rndfNode.Waypoint())
+        rndfNode.Waypoint()->SetEntry(true);
+    }
 
   return true;
 }

@@ -557,6 +557,16 @@ bool Lane::Load(std::ifstream &_rndfFile, const int _segmentId,
       return false;
     }
 
+    // Set the exit flags if needed.
+    for (auto const &exit : header.Exits())
+    {
+      if (exit.ExitId() == UniqueId(_segmentId, laneId, waypoint.Id()))
+      {
+        waypoint.SetExit(true);
+        break;
+      }
+    }
+
     waypoints.push_back(waypoint);
   }
 

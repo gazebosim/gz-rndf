@@ -57,6 +57,12 @@ namespace ignition
       /// \brief Location of the waypoint in decimal-degrees, using ITRF00
       /// reference frame and the GRS80 ellipsoid.
       public: ignition::math::SphericalCoordinates location;
+
+      /// \brief Is the waypoint an entry?
+      public: bool isEntry = false;
+
+      /// \brief Is the waypoint an exit?
+      public: bool isExit = false;
     };
   }
 }
@@ -193,6 +199,30 @@ ignition::math::SphericalCoordinates &Waypoint::Location()
 }
 
 //////////////////////////////////////////////////
+bool Waypoint::IsEntry() const
+{
+  return this->dataPtr->isEntry;
+}
+
+//////////////////////////////////////////////////
+void Waypoint::SetEntry(const bool _newValue)
+{
+  this->dataPtr->isEntry = _newValue;
+}
+
+//////////////////////////////////////////////////
+bool Waypoint::IsExit() const
+{
+  return this->dataPtr->isExit;
+}
+
+//////////////////////////////////////////////////
+void Waypoint::SetExit(const bool _newValue)
+{
+  this->dataPtr->isExit = _newValue;
+}
+
+//////////////////////////////////////////////////
 bool Waypoint::Valid() const
 {
   return this->Id() > 0;
@@ -215,5 +245,7 @@ Waypoint &Waypoint::operator=(const Waypoint &_other)
 {
   this->SetId(_other.Id());
   this->dataPtr->location = _other.dataPtr->location;
+  this->dataPtr->isExit = _other.IsExit();
+  this->dataPtr->isEntry = _other.IsEntry();
   return *this;
 }

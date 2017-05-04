@@ -96,6 +96,40 @@ TEST(Waypoint, location)
 }
 
 //////////////////////////////////////////////////
+/// \brief Check exit/entry accessors.
+TEST(Waypoint, exitEntry)
+{
+  // Default surface type.
+  ignition::math::SphericalCoordinates::SurfaceType st =
+    ignition::math::SphericalCoordinates::EARTH_WGS84;
+  ignition::math::Angle lat(0.3), lon(-1.2), heading(0.5);
+  double elev = 354.1;
+  ignition::math::SphericalCoordinates sc(st, lat, lon, elev, heading);
+
+  int id = 1;
+  Waypoint waypoint(id, sc);
+
+  EXPECT_FALSE(waypoint.IsEntry());
+  EXPECT_FALSE(waypoint.IsExit());
+
+  waypoint.SetEntry(true);
+
+  EXPECT_TRUE(waypoint.IsEntry());
+  EXPECT_FALSE(waypoint.IsExit());
+
+  waypoint.SetExit(true);
+
+  EXPECT_TRUE(waypoint.IsEntry());
+  EXPECT_TRUE(waypoint.IsExit());
+
+  waypoint.SetEntry(false);
+  waypoint.SetExit(false);
+
+  EXPECT_FALSE(waypoint.IsEntry());
+  EXPECT_FALSE(waypoint.IsExit());
+}
+
+//////////////////////////////////////////////////
 /// \brief Check function that validates the Id of a waypoint.
 TEST(Waypoint, valid)
 {

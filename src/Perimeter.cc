@@ -218,6 +218,16 @@ bool Perimeter::Load(std::ifstream &_rndfFile, const int _zoneId,
       return false;
     }
 
+    // Set the exit flags if needed.
+    for (auto const &exit : header.Exits())
+    {
+      if (exit.ExitId() == UniqueId(_zoneId, 0, waypoint.Id()))
+      {
+        waypoint.SetExit(true);
+        break;
+      }
+    }
+
     perimeterPoints.push_back(waypoint);
   }
 

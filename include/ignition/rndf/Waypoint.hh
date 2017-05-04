@@ -104,6 +104,26 @@ namespace ignition
       public: ignition::math::SphericalCoordinates &Location();
 
       //////////////
+      /// Entry/Exit
+      //////////////
+
+      /// \brief Is the waypoint an entry?
+      /// \return whether the waypoint is an entry or not.
+      public: bool IsEntry() const;
+
+      /// \brief Set the entry flag of the waypoint.
+      /// \param[in] _newValue The new entry flag.
+      public: void SetEntry(const bool _newValue);
+
+      /// \brief Is the waypoint an exit?
+      /// \return whether the waypoint is an exit or not.
+      public: bool IsExit() const;
+
+      /// \brief Set the exit flag of the waypoint.
+      /// \param[in] _newValue The new exit flag.
+      public: void SetExit(const bool _newValue);
+
+      //////////////
       /// Validation
       //////////////
 

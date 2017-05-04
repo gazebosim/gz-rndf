@@ -280,14 +280,91 @@ TEST(RNDF, loadSamples)
     RNDF rndf(dirPath + "/test/rndf/sample1.rndf");
     EXPECT_TRUE(rndf.Valid());
 
-    rndf::UniqueId id(1, 1, 1);
-    RNDFNode *nodeInfo = rndf.Info(id);
-    ASSERT_TRUE(nodeInfo != nullptr);
-    ASSERT_TRUE(nodeInfo->Segment() != nullptr);
-    ASSERT_EQ(nodeInfo->Segment()->Id(), 1);
-    ASSERT_TRUE(nodeInfo->Lane() != nullptr);
-    ASSERT_EQ(nodeInfo->Lane()->Id(), 1);
-    ASSERT_TRUE(nodeInfo->Zone() == nullptr);
+    {
+      rndf::UniqueId id(1, 1, 1);
+      RNDFNode *nodeInfo = rndf.Info(id);
+      ASSERT_TRUE(nodeInfo != nullptr);
+      ASSERT_TRUE(nodeInfo->Segment() != nullptr);
+      ASSERT_EQ(nodeInfo->Segment()->Id(), 1);
+      ASSERT_TRUE(nodeInfo->Lane() != nullptr);
+      ASSERT_EQ(nodeInfo->Lane()->Id(), 1);
+      ASSERT_TRUE(nodeInfo->Zone() == nullptr);
+    }
+    // From segment to segment.
+    {
+      rndf::UniqueId id(1, 2, 4);
+      RNDFNode *nodeInfo = rndf.Info(id);
+      ASSERT_TRUE(nodeInfo != nullptr);
+      ASSERT_TRUE(nodeInfo->Segment() != nullptr);
+      ASSERT_EQ(nodeInfo->Segment()->Id(), 1);
+      ASSERT_TRUE(nodeInfo->Lane() != nullptr);
+      ASSERT_EQ(nodeInfo->Lane()->Id(), 2);
+      ASSERT_TRUE(nodeInfo->Zone() == nullptr);
+      ASSERT_EQ(nodeInfo->Waypoint()->Id(), 4);
+      ASSERT_TRUE(nodeInfo->Waypoint()->IsExit());
+    }
+    {
+      rndf::UniqueId id(3, 1, 1);
+      RNDFNode *nodeInfo = rndf.Info(id);
+      ASSERT_TRUE(nodeInfo != nullptr);
+      ASSERT_TRUE(nodeInfo->Segment() != nullptr);
+      ASSERT_EQ(nodeInfo->Segment()->Id(), 3);
+      ASSERT_TRUE(nodeInfo->Lane() != nullptr);
+      ASSERT_EQ(nodeInfo->Lane()->Id(), 1);
+      ASSERT_TRUE(nodeInfo->Zone() == nullptr);
+      ASSERT_EQ(nodeInfo->Waypoint()->Id(), 1);
+      ASSERT_TRUE(nodeInfo->Waypoint()->IsEntry());
+    }
+    // From segment to zone.
+    {
+      rndf::UniqueId id(12, 1, 2);
+      RNDFNode *nodeInfo = rndf.Info(id);
+      ASSERT_TRUE(nodeInfo != nullptr);
+      ASSERT_TRUE(nodeInfo->Segment() != nullptr);
+      ASSERT_EQ(nodeInfo->Segment()->Id(), 12);
+      ASSERT_TRUE(nodeInfo->Lane() != nullptr);
+      ASSERT_EQ(nodeInfo->Lane()->Id(), 1);
+      ASSERT_TRUE(nodeInfo->Zone() == nullptr);
+      ASSERT_EQ(nodeInfo->Waypoint()->Id(), 2);
+      ASSERT_TRUE(nodeInfo->Waypoint()->IsExit());
+    }
+    {
+      rndf::UniqueId id(14, 0, 2);
+      RNDFNode *nodeInfo = rndf.Info(id);
+      ASSERT_TRUE(nodeInfo != nullptr);
+      ASSERT_TRUE(nodeInfo->Segment() == nullptr);
+      ASSERT_TRUE(nodeInfo->Lane() == nullptr);
+      ASSERT_TRUE(nodeInfo->Zone() != nullptr);
+      EXPECT_EQ(nodeInfo->Zone()->Id(), 14);
+      ASSERT_TRUE(nodeInfo->Waypoint() != nullptr);
+      ASSERT_EQ(nodeInfo->Waypoint()->Id(), 2);
+      ASSERT_TRUE(nodeInfo->Waypoint()->IsEntry());
+    }
+    // From zone to segment.
+    {
+      rndf::UniqueId id(14, 0, 5);
+      RNDFNode *nodeInfo = rndf.Info(id);
+      ASSERT_TRUE(nodeInfo != nullptr);
+      ASSERT_TRUE(nodeInfo->Segment() == nullptr);
+      ASSERT_TRUE(nodeInfo->Lane() == nullptr);
+      ASSERT_TRUE(nodeInfo->Zone() != nullptr);
+      EXPECT_EQ(nodeInfo->Zone()->Id(), 14);
+      ASSERT_TRUE(nodeInfo->Waypoint() != nullptr);
+      ASSERT_EQ(nodeInfo->Waypoint()->Id(), 5);
+      ASSERT_TRUE(nodeInfo->Waypoint()->IsExit());
+    }
+    {
+      rndf::UniqueId id(11, 1, 1);
+      RNDFNode *nodeInfo = rndf.Info(id);
+      ASSERT_TRUE(nodeInfo != nullptr);
+      ASSERT_TRUE(nodeInfo->Segment() != nullptr);
+      ASSERT_EQ(nodeInfo->Segment()->Id(), 11);
+      ASSERT_TRUE(nodeInfo->Lane() != nullptr);
+      ASSERT_EQ(nodeInfo->Lane()->Id(), 1);
+      ASSERT_TRUE(nodeInfo->Zone() == nullptr);
+      ASSERT_EQ(nodeInfo->Waypoint()->Id(), 1);
+      ASSERT_TRUE(nodeInfo->Waypoint()->IsEntry());
+    }
   }
   {
     RNDF rndf(dirPath + "/test/rndf/sample2.rndf");
