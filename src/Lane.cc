@@ -103,7 +103,7 @@ LaneHeader::~LaneHeader()
 
 //////////////////////////////////////////////////
 bool LaneHeader::Load(std::ifstream &_rndfFile, const int _segmentId,
-  const int _laneId, int &_lineNumber)
+  const int _laneId, int &_lineNumber, std::vector<ExitCacheEntry> &_exitCache)
 {
   double width = 0;
   Marking leftBoundary = Marking::UNDEFINED;
@@ -217,6 +217,10 @@ bool LaneHeader::Load(std::ifstream &_rndfFile, const int _segmentId,
       }
 
       exits.push_back(exit);
+
+      // Update the exit cache.
+      _exitCache.push_back({exit.ExitId().String(),
+        exit.EntryId().String(), _lineNumber, lineread});
     }
     else
     {
@@ -483,7 +487,8 @@ Lane::~Lane()
 
 //////////////////////////////////////////////////
 bool Lane::Load(std::ifstream &_rndfFile, const int _segmentId,
-  int &_lineNumber)
+  int &_lineNumber, std::vector<ExitCacheEntry> &_exitCache,
+  std::vector<std::string> &_waypointCache)
 {
   std::string lineread;
 
@@ -539,7 +544,7 @@ bool Lane::Load(std::ifstream &_rndfFile, const int _segmentId,
 
   // Parse optional lane header.
   LaneHeader header;
-  if (!header.Load(_rndfFile, _segmentId, laneId, _lineNumber))
+  if (!header.Load(_rndfFile, _segmentId, laneId, _lineNumber, _exitCache))
     return false;
 
   // Parse waypoints.
@@ -568,6 +573,9 @@ bool Lane::Load(std::ifstream &_rndfFile, const int _segmentId,
     }
 
     waypoints.push_back(waypoint);
+    std::string wpStr(std::to_string(_segmentId) + "." + std::to_string(laneId)
+      + "." + std::to_string(waypoint.Id()));
+    _waypointCache.push_back(wpStr);
   }
 
   // Parse "end_lane".

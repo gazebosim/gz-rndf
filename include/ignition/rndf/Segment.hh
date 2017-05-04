@@ -30,6 +30,7 @@ namespace ignition
   namespace rndf
   {
     // Forward declarations.
+    class ExitCacheEntry;
     class Lane;
     class SegmentHeaderPrivate;
     class SegmentPrivate;
@@ -105,10 +106,13 @@ namespace ignition
       /// \param[in, out] _rndfFile Input file stream.
       /// \param[in, out] _lineNumber Line number pointed by the stream position
       /// indicator.
+      /// \param[in, out] _exitCache ToDo.
       /// \return True if a segment block was found and parsed or false
       /// otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,
-                        int &_lineNumber);
+                        int &_lineNumber,
+                        std::vector<ExitCacheEntry> &_exitCache,
+                        std::vector<std::string> &_waypointCache);
 
       ///////
       /// Id

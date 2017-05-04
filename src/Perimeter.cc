@@ -81,7 +81,8 @@ PerimeterHeader::~PerimeterHeader()
 
 //////////////////////////////////////////////////
 bool PerimeterHeader::Load(std::ifstream &_rndfFile, const int _zoneId,
-  const int _perimeterId, int &_lineNumber)
+  const int _perimeterId, const std::string &_lineread, int &_lineNumber,
+  std::vector<ExitCacheEntry> &_exitCache)
 {
   auto oldPos = _rndfFile.tellg();
   int oldLineNumber = _lineNumber;
@@ -91,6 +92,11 @@ bool PerimeterHeader::Load(std::ifstream &_rndfFile, const int _zoneId,
   while (exit.Load(_rndfFile, _zoneId, _perimeterId, _lineNumber))
   {
     this->AddExit(exit);
+
+    // Add the exit to the cache.
+    _exitCache.push_back({exit.ExitId().String(), exit.EntryId().String(),
+      _lineNumber, _lineread});
+
     oldPos = _rndfFile.tellg();
     oldLineNumber = _lineNumber;
   }
@@ -168,7 +174,8 @@ Perimeter::~Perimeter()
 
 //////////////////////////////////////////////////
 bool Perimeter::Load(std::ifstream &_rndfFile, const int _zoneId,
-  int &_lineNumber)
+  int &_lineNumber, std::vector<ExitCacheEntry> &_exitCache,
+  std::vector<std::string> &_waypointCache)
 {
   std::string lineread;
   nextRealLine(_rndfFile, lineread, _lineNumber);
@@ -201,7 +208,7 @@ bool Perimeter::Load(std::ifstream &_rndfFile, const int _zoneId,
 
   // Parse optional perimeter header.
   PerimeterHeader header;
-  header.Load(_rndfFile, _zoneId, 0, _lineNumber);
+  header.Load(_rndfFile, _zoneId, 0, lineread, _lineNumber, _exitCache);
 
   // Parse the perimeter points.
   std::vector<rndf::Waypoint> perimeterPoints;
@@ -229,6 +236,10 @@ bool Perimeter::Load(std::ifstream &_rndfFile, const int _zoneId,
     }
 
     perimeterPoints.push_back(waypoint);
+
+    std::string wpStr(std::to_string(_zoneId) + ".0." +
+      std::to_string(waypoint.Id()));
+    _waypointCache.push_back(wpStr);
   }
 
   // Parse "end_perimeter".

@@ -20,6 +20,7 @@
 
 #include <iosfwd>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "ignition/rndf/Helpers.hh"
@@ -30,6 +31,7 @@ namespace ignition
   {
     // Forward declarations.
     class Exit;
+    class ExitCacheEntry;
     class PerimeterHeaderPrivate;
     class PerimeterPrivate;
     class Waypoint;
@@ -60,7 +62,9 @@ namespace ignition
       public: bool Load(std::ifstream &_rndfFile,
                         const int _zoneId,
                         const int _perimeterId,
-                        int &_lineNumber);
+                        const std::string &_lineread,
+                        int &_lineNumber,
+                        std::vector<ExitCacheEntry> &_exitCache);
 
       /////////
       /// Exits
@@ -122,7 +126,9 @@ namespace ignition
       /// otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,
                         const int _zoneId,
-                        int &_lineNumber);
+                        int &_lineNumber,
+                        std::vector<ExitCacheEntry> &_exitCache,
+                        std::vector<std::string> &_waypointCache);
 
       ////////////////////
       /// Perimeter points

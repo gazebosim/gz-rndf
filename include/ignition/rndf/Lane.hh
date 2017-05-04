@@ -20,6 +20,7 @@
 
 #include <iosfwd>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "ignition/rndf/Helpers.hh"
@@ -31,6 +32,7 @@ namespace ignition
     // Forward declarations.
     class Checkpoint;
     class Exit;
+    class ExitCacheEntry;
     class LaneHeaderPrivate;
     class LanePrivate;
     class Waypoint;
@@ -71,12 +73,14 @@ namespace ignition
       /// \param[in] _laneId The expected lane Id.
       /// \param[in, out] _lineNumber Line number pointed by the stream position
       /// indicator.
+      /// \param[in, out] _exitCache ToDo.
       /// \return True if a lane header block was found and parsed or
       /// false otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,
                         const int _segmentId,
                         const int _laneId,
-                        int &_lineNumber);
+                        int &_lineNumber,
+                        std::vector<ExitCacheEntry> &_exitCache);
 
       /////////
       /// Width
@@ -239,7 +243,9 @@ namespace ignition
       /// false otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,
                         const int _segmentId,
-                        int &_lineNumber);
+                        int &_lineNumber,
+                        std::vector<ExitCacheEntry> &_exitCache,
+                        std::vector<std::string> &_waypointCache);
 
       ///////
       /// Id

@@ -28,6 +28,7 @@
 #include "ignition/rndf/Checkpoint.hh"
 #include "ignition/rndf/Exit.hh"
 #include "ignition/rndf/Lane.hh"
+#include "ignition/rndf/ParserUtils.hh"
 #include "ignition/rndf/UniqueId.hh"
 #include "ignition/rndf/Waypoint.hh"
 
@@ -1035,7 +1036,10 @@ TEST_F(LaneTest, Load)
     // Check expectations.
     Lane lane;
     bool res;
-    EXPECT_EQ(res = lane.Load(f, 60, line), expectedResult);
+    std::vector<ExitCacheEntry> exitCache;
+    std::vector<std::string> waypointCache;
+    EXPECT_EQ(res = lane.Load(f, 60, line, exitCache, waypointCache),
+      expectedResult);
     EXPECT_EQ(line, expectedLine);
     if (res)
     {

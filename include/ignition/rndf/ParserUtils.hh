@@ -34,6 +34,18 @@ namespace ignition
     class UniqueId;
     enum class Marking;
 
+    /// \brief ToDo.
+    struct ExitCacheEntry
+    {
+      public: std::string exitId;
+
+      public: std::string entryId;
+
+      public: int lineNumber;
+
+      public: std::string line;
+    };
+
     /// \brief Remove comments, consecutive whitespaces (leaving onle one) and
     /// leading and trailing whitespaces.
     /// \param[in] _str Input string.

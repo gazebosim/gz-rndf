@@ -917,6 +917,32 @@ TEST_F(RNDFTest, load)
       "end_segment\n"
       "\n"
                                                     , false, 0),
+    // Non-existent entry id on exit.
+    std::make_tuple(
+      "RNDF_name roadA /*A comment */\n"
+      "\n"
+      " /* Ignore */\n"
+      "\n"
+      "num_segments 1\n"
+      "num_zones 0\n"
+      "segment 1\n"
+      "num_lanes 1\n"
+      "lane 1.1\n"
+      "num_waypoints 9\n"
+      "exit 1.1.2 1.1.15\n"
+      "1.1.1 30.3870130 -97.7276181\n"
+      "1.1.2 30.3876366 -97.7273710\n"
+      "1.1.3 30.3881655 -97.7271432\n"
+      "1.1.4 30.3885908 -97.7269603\n"
+      "1.1.5 30.3888965 -97.7268688\n"
+      "1.1.6 30.3891127 -97.7268779\n"
+      "1.1.7 30.3893659 -97.7268964\n"
+      "1.1.8 30.3896061 -97.7268374\n"
+      "1.1.9 30.3900594 -97.7266452\n"
+      "end_lane\n"
+      "end_segment\n"
+      "end_file\n"
+                                                    , false, 11),
     // No options.
     std::make_tuple(
       "RNDF_name roadA /*A comment */\n"

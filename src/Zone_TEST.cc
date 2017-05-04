@@ -26,6 +26,7 @@
 #include "gtest/gtest.h"
 #include "ignition/rndf/test_config.h"
 #include "ignition/rndf/ParkingSpot.hh"
+#include "ignition/rndf/ParserUtils.hh"
 #include "ignition/rndf/Perimeter.hh"
 #include "ignition/rndf/Waypoint.hh"
 #include "ignition/rndf/Zone.hh"
@@ -610,7 +611,10 @@ TEST_F(ZoneTest, Load)
     // Check expectations.
     Zone zone;
     bool res;
-    EXPECT_EQ(res = zone.Load(f, line), expectedResult);
+    std::vector<ExitCacheEntry> exitCache;
+    std::vector<std::string> waypointCache;
+    EXPECT_EQ(res = zone.Load(f, line, exitCache, waypointCache),
+      expectedResult);
     EXPECT_EQ(line, expectedLine);
     if (res)
     {

@@ -87,6 +87,12 @@ namespace ignition
       /// associated RNDFNode objects containing the metadata associated to
       /// the unique Id..
       public: std::map<std::string, rndf::RNDFNode> cache;
+
+      /// \brief ToDo.
+      public: std::vector<ExitCacheEntry> exitCache;
+
+      /// \brief ToDo.
+      public: std::vector<std::string> waypointCache;
     };
   }
 }
@@ -210,7 +216,7 @@ bool RNDF::Load(const std::string &_filePath)
     return false;
   }
 
-  int lineNumber = -1;
+  int lineNumber = 0;
 
   // Parse "RNDF_name"
   std::string fileName;
@@ -237,8 +243,11 @@ bool RNDF::Load(const std::string &_filePath)
   for (auto i = 0; i < numSegments; ++i)
   {
     rndf::Segment segment;
-    if (!segment.Load(rndfFile, lineNumber))
+    if (!segment.Load(rndfFile, lineNumber, this->dataPtr->exitCache,
+      this->dataPtr->waypointCache))
+    {
       return false;
+    }
 
     // Check that all segments are consecutive.
     if (segment.Id() != i + 1)
@@ -256,8 +265,11 @@ bool RNDF::Load(const std::string &_filePath)
   for (auto i = 0; i < numZones; ++i)
   {
     rndf::Zone zone;
-    if (!zone.Load(rndfFile, lineNumber))
+    if (!zone.Load(rndfFile, lineNumber, this->dataPtr->exitCache,
+      this->dataPtr->waypointCache))
+    {
       return false;
+    }
 
     // Check that all zones are consecutive.
     size_t expectedZoneId = segments.size() + i + 1;
@@ -277,6 +289,21 @@ bool RNDF::Load(const std::string &_filePath)
 
   rndfFile.close();
 
+  // Sanity check: Validate all entries.
+  for (auto &exitElement : this->dataPtr->exitCache)
+  {
+    if (std::find(this->dataPtr->waypointCache.begin(),
+      this->dataPtr->waypointCache.end(), exitElement.entryId) ==
+      this->dataPtr->waypointCache.end())
+    {
+      std::cerr << "[Line " << exitElement.lineNumber << "]: Non-existent entry"
+                << " Id ["  << exitElement.entryId << "]" << std::endl;
+      std::cerr << " \"" << exitElement.line << "\"" << std::endl;
+      this->dataPtr->cache.clear();
+      return false;
+    }
+  }
+
   // Populate the RNDF.
   this->SetName(fileName);
   this->Segments() = segments;
@@ -286,25 +313,17 @@ bool RNDF::Load(const std::string &_filePath)
 
   this->UpdateCache();
 
-  // Update the "entry" flag of the waypoints that are entry points.
-  for (auto &segment : this->Segments())
-    for (auto &lane : segment.Lanes())
-      for (auto &exit : lane.Exits())
-      {
-        std::string entryIdStr = exit.EntryId().String();
-        auto &rndfNode = this->dataPtr->cache[entryIdStr];
-        if (rndfNode.Waypoint())
-          rndfNode.Waypoint()->SetEntry(true);
-      }
+  // Set the "entry" flag of the waypoints that are entry points.
+  for (auto &exitElement : this->dataPtr->exitCache)
+  {
+    std::string entryId = exitElement.entryId;
+    assert(this->dataPtr->cache.find(exitElement.entryId) !=
+      this->dataPtr->cache.end());
 
-  for (auto &zone : this->Zones())
-    for (auto &exit : zone.Perimeter().Exits())
-    {
-      std::string entryIdStr = exit.EntryId().String();
-      auto &rndfNode = this->dataPtr->cache[entryIdStr];
-      if (rndfNode.Waypoint())
-        rndfNode.Waypoint()->SetEntry(true);
-    }
+    auto &rndfNode = this->dataPtr->cache[entryId];
+    assert(rndfNode.Waypoint());
+    rndfNode.Waypoint()->SetEntry(true);
+  }
 
   return true;
 }

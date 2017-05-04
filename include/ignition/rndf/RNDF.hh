@@ -19,6 +19,7 @@
 #define IGNITION_RNDF_RNDF_HH_
 
 #include <iosfwd>
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>

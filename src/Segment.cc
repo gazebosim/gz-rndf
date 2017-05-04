@@ -162,7 +162,9 @@ Segment::~Segment()
 }
 
 //////////////////////////////////////////////////
-bool Segment::Load(std::ifstream &_rndfFile, int &_lineNumber)
+bool Segment::Load(std::ifstream &_rndfFile, int &_lineNumber,
+  std::vector<ExitCacheEntry> &_exitCache,
+  std::vector<std::string> &_waypointCache)
 {
   int segmentId;
   if (!parsePositive(_rndfFile, "segment", segmentId, _lineNumber))
@@ -182,8 +184,11 @@ bool Segment::Load(std::ifstream &_rndfFile, int &_lineNumber)
   {
     // Parse a lane.
     rndf::Lane lane;
-    if (!lane.Load(_rndfFile, segmentId, _lineNumber))
+    if (!lane.Load(_rndfFile, segmentId, _lineNumber, _exitCache,
+      _waypointCache))
+    {
       return false;
+    }
 
     // Check that all lanes are consecutive.
     if (lane.Id() != i + 1)

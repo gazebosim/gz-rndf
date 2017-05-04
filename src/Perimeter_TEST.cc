@@ -25,6 +25,7 @@
 #include "gtest/gtest.h"
 #include "ignition/rndf/test_config.h"
 #include "ignition/rndf/Exit.hh"
+#include "ignition/rndf/ParserUtils.hh"
 #include "ignition/rndf/Perimeter.hh"
 #include "ignition/rndf/UniqueId.hh"
 #include "ignition/rndf/Waypoint.hh"
@@ -588,7 +589,10 @@ TEST_F(PerimeterTest, load)
     // Check expectations.
     Perimeter perimeter;
     bool res;
-    EXPECT_EQ(res = perimeter.Load(f, 61, line), expectedResult);
+    std::vector<ExitCacheEntry> exitCache;
+    std::vector<std::string> waypointCache;
+    EXPECT_EQ(res = perimeter.Load(f, 61, line, exitCache, waypointCache),
+      expectedResult);
     EXPECT_EQ(line, expectedLine);
     if (res)
     {

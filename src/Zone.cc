@@ -166,7 +166,9 @@ Zone::~Zone()
 }
 
 //////////////////////////////////////////////////
-bool Zone::Load(std::ifstream &_rndfFile, int &_lineNumber)
+bool Zone::Load(std::ifstream &_rndfFile, int &_lineNumber,
+  std::vector<ExitCacheEntry> &_exitCache,
+  std::vector<std::string> &_waypointCache)
 {
   int zoneId;
   if (!parsePositive(_rndfFile, "zone", zoneId, _lineNumber))
@@ -183,8 +185,11 @@ bool Zone::Load(std::ifstream &_rndfFile, int &_lineNumber)
 
   // Parse the perimeter.
   rndf::Perimeter perimeter;
-  if (!perimeter.Load(_rndfFile, zoneId, _lineNumber))
+  if (!perimeter.Load(_rndfFile, zoneId, _lineNumber, _exitCache,
+    _waypointCache))
+  {
     return false;
+  }
 
   // Parse parking spots.
   std::vector<rndf::ParkingSpot> spots;

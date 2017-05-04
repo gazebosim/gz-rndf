@@ -112,7 +112,9 @@ namespace ignition
       /// \return True if a zone block was found and parsed or
       /// false otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,
-                        int &_lineNumber);
+                        int &_lineNumber,
+                        std::vector<ExitCacheEntry> &_exitCache,
+                        std::vector<std::string> &_waypointCache);
 
       ///////
       /// Id
