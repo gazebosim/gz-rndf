@@ -32,10 +32,10 @@ namespace ignition
     // Forward declarations.
     class Checkpoint;
     class Exit;
-    class ExitCacheEntry;
     class LaneHeaderPrivate;
     class LanePrivate;
     class Waypoint;
+    struct ExitCacheEntry;
 
     /// \def Scope Different options for the lane boundaries.
     enum class Marking

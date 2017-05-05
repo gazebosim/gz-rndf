@@ -31,10 +31,10 @@ namespace ignition
   {
     // Forward declarations.
     class Exit;
-    class ExitCacheEntry;
     class PerimeterHeaderPrivate;
     class PerimeterPrivate;
     class Waypoint;
+    struct ExitCacheEntry;
 
     /// \internal
     /// \brief An internal private perimeter header class.

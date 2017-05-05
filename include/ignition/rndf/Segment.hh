@@ -30,10 +30,10 @@ namespace ignition
   namespace rndf
   {
     // Forward declarations.
-    class ExitCacheEntry;
     class Lane;
     class SegmentHeaderPrivate;
     class SegmentPrivate;
+    struct ExitCacheEntry;
 
     // \internal
     /// \brief An internal private segment header class.
