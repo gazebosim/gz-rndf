@@ -81,7 +81,7 @@ PerimeterHeader::~PerimeterHeader()
 
 //////////////////////////////////////////////////
 bool PerimeterHeader::Load(std::ifstream &_rndfFile, const int _zoneId,
-  const int _perimeterId, const std::string &_lineread, int &_lineNumber,
+  const int _perimeterId, int &_lineNumber,
   std::vector<ExitCacheEntry> &_exitCache)
 {
   auto oldPos = _rndfFile.tellg();
@@ -89,13 +89,14 @@ bool PerimeterHeader::Load(std::ifstream &_rndfFile, const int _zoneId,
 
   // We should leave if we don't find the "exit" element.
   rndf::Exit exit;
-  while (exit.Load(_rndfFile, _zoneId, _perimeterId, _lineNumber))
+  std::string lineread;
+  while (exit.Load(_rndfFile, _zoneId, _perimeterId, _lineNumber, lineread))
   {
     this->AddExit(exit);
 
     // Add the exit to the cache.
     _exitCache.push_back({exit.ExitId().String(), exit.EntryId().String(),
-      _lineNumber, _lineread});
+      _lineNumber, lineread});
 
     oldPos = _rndfFile.tellg();
     oldLineNumber = _lineNumber;
@@ -208,7 +209,7 @@ bool Perimeter::Load(std::ifstream &_rndfFile, const int _zoneId,
 
   // Parse optional perimeter header.
   PerimeterHeader header;
-  header.Load(_rndfFile, _zoneId, 0, lineread, _lineNumber, _exitCache);
+  header.Load(_rndfFile, _zoneId, 0, _lineNumber, _exitCache);
 
   // Parse the perimeter points.
   std::vector<rndf::Waypoint> perimeterPoints;

@@ -47,11 +47,10 @@ Exit::~Exit()
 
 //////////////////////////////////////////////////
 bool Exit::Load(std::ifstream &_rndfFile, const int _x, const int _y,
-  int &_lineNumber)
+  int &_lineNumber, std::string &_lineread)
 {
-  std::string lineread;
-  nextRealLine(_rndfFile, lineread, _lineNumber);
-  return parseExit(lineread, _x, _y, *this);
+  nextRealLine(_rndfFile, _lineread, _lineNumber);
+  return parseExit(_lineread, _x, _y, *this);
 }
 
 //////////////////////////////////////////////////

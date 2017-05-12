@@ -19,6 +19,7 @@
 #define IGNITION_RNDF_EXIT_HH_
 
 #include <iosfwd>
+#include <string>
 
 #include "ignition/rndf/Helpers.hh"
 #include "ignition/rndf/UniqueId.hh"
@@ -59,12 +60,14 @@ namespace ignition
       /// \param[in] _y The expected "y" value from an x.y.z Id.
       /// \param[in, out] _lineNumber Line number pointed by the stream position
       /// indicator.
+      /// \param[out] _lineRead Entire text line used to parse the exit.
       /// \return True if a zone block was found and parsed or
       /// false otherwise (e.g.: EoF or incorrect format found).
       public: bool Load(std::ifstream &_rndfFile,
                         const int _x,
                         const int _y,
-                        int &_lineNumber);
+                        int &_lineNumber,
+                        std::string &_lineRead);
 
       //////////
       /// ExitId

@@ -214,7 +214,8 @@ TEST_F(ExitTest, load)
     // Check expectations.
     Exit exit;
     bool res;
-    EXPECT_EQ(res = exit.Load(f, 68, 0, line), expectedResult);
+    std::string lineread;
+    EXPECT_EQ(res = exit.Load(f, 68, 0, line, lineread), expectedResult);
     EXPECT_EQ(line, expectedLine);
     if (res)
     {

@@ -55,7 +55,6 @@ namespace ignition
       /// \param[in, out] _rndfFile Input file stream.
       /// \param[in] _zoneId The zone Id in which the spot is located.
       /// \param[in] _perimeterId The perimeter Id.
-      /// \param[in] _lineread The entire text line under parsing.
       /// \param[in, out] _lineNumber Line number pointed by the stream position
       /// indicator.
       /// \param[in, out] _exitCache Cache of exits parsed.
@@ -64,7 +63,6 @@ namespace ignition
       public: bool Load(std::ifstream &_rndfFile,
                         const int _zoneId,
                         const int _perimeterId,
-                        const std::string &_lineread,
                         int &_lineNumber,
                         std::vector<ExitCacheEntry> &_exitCache);
 

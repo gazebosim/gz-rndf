@@ -304,6 +304,21 @@ bool RNDF::Load(const std::string &_filePath)
     }
   }
 
+  // Sanity check: Validate all exit Ids.
+  for (auto const &exitElement : this->dataPtr->exitCache)
+  {
+    if (std::find(this->dataPtr->waypointCache.begin(),
+      this->dataPtr->waypointCache.end(), exitElement.exitId) ==
+      this->dataPtr->waypointCache.end())
+    {
+      std::cerr << "[Line " << exitElement.lineNumber << "]: Non-existent exit"
+                << " Id ["  << exitElement.exitId << "]" << std::endl;
+      std::cerr << " \"" << exitElement.line << "\"" << std::endl;
+      this->dataPtr->cache.clear();
+      return false;
+    }
+  }
+
   // Populate the RNDF.
   this->SetName(fileName);
   this->Segments() = segments;
