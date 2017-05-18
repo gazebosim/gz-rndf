@@ -687,9 +687,10 @@ bool Lane::AddWaypoint(const rndf::Waypoint &_newWaypoint)
 bool Lane::RemoveWaypoint(const int _wpId)
 {
   rndf::Waypoint wp(_wpId, ignition::math::SphericalCoordinates());
-  return (this->dataPtr->waypoints.erase(std::remove(
-    this->dataPtr->waypoints.begin(), this->dataPtr->waypoints.end(), wp),
-      this->dataPtr->waypoints.end()) != this->dataPtr->waypoints.end());
+  auto end = this->dataPtr->waypoints.end();
+  auto removed = std::remove(this->dataPtr->waypoints.begin(), end, wp);
+  return end !=
+    this->dataPtr->waypoints.erase(removed, this->dataPtr->waypoints.end());
 }
 
 //////////////////////////////////////////////////
