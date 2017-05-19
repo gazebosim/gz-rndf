@@ -431,9 +431,10 @@ bool RNDF::AddSegment(const rndf::Segment &_newSegment)
 bool RNDF::RemoveSegment(const int _segmentId)
 {
   rndf::Segment segment(_segmentId);
-  return (this->dataPtr->segments.erase(std::remove(
-    this->dataPtr->segments.begin(), this->dataPtr->segments.end(), segment),
-      this->dataPtr->segments.end()) != this->dataPtr->segments.end());
+  auto end = this->dataPtr->segments.end();
+  auto removed = std::remove(this->dataPtr->segments.begin(), end, segment);
+  return end !=
+    this->dataPtr->segments.erase(removed, this->dataPtr->segments.end());
 }
 
 //////////////////////////////////////////////////
@@ -512,9 +513,9 @@ bool RNDF::AddZone(const rndf::Zone &_newZone)
 bool RNDF::RemoveZone(const int _zoneId)
 {
   rndf::Zone zone(_zoneId);
-  return (this->dataPtr->zones.erase(std::remove(
-    this->dataPtr->zones.begin(), this->dataPtr->zones.end(), zone),
-      this->dataPtr->zones.end()) != this->dataPtr->zones.end());
+  auto end = this->dataPtr->zones.end();
+  auto removed = std::remove(this->dataPtr->zones.begin(), end, zone);
+  return end != this->dataPtr->zones.erase(removed, this->dataPtr->zones.end());
 }
 
 //////////////////////////////////////////////////
