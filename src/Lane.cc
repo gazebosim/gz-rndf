@@ -363,9 +363,10 @@ bool LaneHeader::AddCheckpoint(const rndf::Checkpoint &_newCheckpoint)
 bool LaneHeader::RemoveCheckpoint(const int _cpId)
 {
   rndf::Checkpoint cp(_cpId, 1);
-  return (this->dataPtr->checkpoints.erase(std::remove(
-    this->dataPtr->checkpoints.begin(), this->dataPtr->checkpoints.end(), cp),
-      this->dataPtr->checkpoints.end()) != this->dataPtr->checkpoints.end());
+  auto end = this->dataPtr->checkpoints.end();
+  auto removed = std::remove(this->dataPtr->checkpoints.begin(), end, cp);
+  return end !=
+    this->dataPtr->checkpoints.erase(removed, this->dataPtr->checkpoints.end());
 }
 
 //////////////////////////////////////////////////
@@ -407,9 +408,9 @@ bool LaneHeader::AddStop(const int _waypointId)
 //////////////////////////////////////////////////
 bool LaneHeader::RemoveStop(const int _waypointId)
 {
-  return (this->dataPtr->stops.erase(std::remove(
-    this->dataPtr->stops.begin(), this->dataPtr->stops.end(), _waypointId),
-      this->dataPtr->stops.end()) != this->dataPtr->stops.end());
+  auto end = this->dataPtr->stops.end();
+  auto removed = std::remove(this->dataPtr->stops.begin(), end, _waypointId);
+  return end != this->dataPtr->stops.erase(removed, this->dataPtr->stops.end());
 }
 
 //////////////////////////////////////////////////
@@ -452,9 +453,9 @@ bool LaneHeader::AddExit(const Exit &_newExit)
 //////////////////////////////////////////////////
 bool LaneHeader::RemoveExit(const Exit &_exit)
 {
-  return (this->dataPtr->exits.erase(std::remove(
-    this->dataPtr->exits.begin(), this->dataPtr->exits.end(), _exit),
-      this->dataPtr->exits.end()) != this->dataPtr->exits.end());
+  auto end = this->dataPtr->exits.end();
+  auto removed = std::remove(this->dataPtr->exits.begin(), end, _exit);
+  return end != this->dataPtr->exits.erase(removed, this->dataPtr->exits.end());
 }
 
 //////////////////////////////////////////////////
