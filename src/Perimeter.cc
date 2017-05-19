@@ -150,9 +150,9 @@ bool PerimeterHeader::AddExit(const Exit &_newExit)
 //////////////////////////////////////////////////
 bool PerimeterHeader::RemoveExit(const Exit &_exit)
 {
-  return (this->dataPtr->exits.erase(std::remove(
-    this->dataPtr->exits.begin(), this->dataPtr->exits.end(), _exit),
-      this->dataPtr->exits.end()) != this->dataPtr->exits.end());
+  auto end = this->dataPtr->exits.end();
+  auto removed = std::remove(this->dataPtr->exits.begin(), end, _exit);
+  return end != this->dataPtr->exits.erase(removed, this->dataPtr->exits.end());
 }
 
 //////////////////////////////////////////////////
@@ -331,9 +331,10 @@ bool Perimeter::AddPoint(const rndf::Waypoint &_newWaypoint)
 bool Perimeter::RemovePoint(const int _wpId)
 {
   rndf::Waypoint wp(_wpId, ignition::math::SphericalCoordinates());
-  return (this->dataPtr->points.erase(std::remove(
-    this->dataPtr->points.begin(), this->dataPtr->points.end(), wp),
-      this->dataPtr->points.end()) != this->dataPtr->points.end());
+  auto end = this->dataPtr->points.end();
+  auto removed = std::remove(this->dataPtr->points.begin(), end, wp);
+  return end !=
+    this->dataPtr->points.erase(removed, this->dataPtr->points.end());
 }
 
 //////////////////////////////////////////////////

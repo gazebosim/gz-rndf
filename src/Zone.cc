@@ -314,9 +314,9 @@ bool Zone::AddSpot(const ParkingSpot &_newSpot)
 bool Zone::RemoveSpot(const int _psId)
 {
   ParkingSpot ps(_psId);
-  return (this->dataPtr->spots.erase(std::remove(
-    this->dataPtr->spots.begin(), this->dataPtr->spots.end(), ps),
-      this->dataPtr->spots.end()) != this->dataPtr->spots.end());
+  auto end = this->dataPtr->spots.end();
+  auto removed = std::remove(this->dataPtr->spots.begin(), end, ps);
+  return end != this->dataPtr->spots.erase(removed, this->dataPtr->spots.end());
 }
 
 //////////////////////////////////////////////////

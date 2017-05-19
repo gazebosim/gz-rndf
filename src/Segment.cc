@@ -304,9 +304,9 @@ bool Segment::AddLane(const rndf::Lane &_newLane)
 bool Segment::RemoveLane(const int _laneId)
 {
   rndf::Lane lane(_laneId);
-  return (this->dataPtr->lanes.erase(std::remove(
-    this->dataPtr->lanes.begin(), this->dataPtr->lanes.end(), lane),
-      this->dataPtr->lanes.end()) != this->dataPtr->lanes.end());
+  auto end = this->dataPtr->lanes.end();
+  auto removed = std::remove(this->dataPtr->lanes.begin(), end, lane);
+  return end != this->dataPtr->lanes.erase(removed, this->dataPtr->lanes.end());
 }
 
 //////////////////////////////////////////////////
