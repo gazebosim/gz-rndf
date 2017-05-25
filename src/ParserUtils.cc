@@ -62,10 +62,10 @@ namespace ignition
       _str.erase(new_end, _str.end());
 
       // Remove leading and trailing whitespaces.
-      if (isspace(_str.front()))
+      if (!_str.empty() && isspace(_str.front()))
         _str.erase(0, 1);
 
-      if (isspace(_str.back()))
+      if (!_str.empty() && isspace(_str.back()))
         _str.pop_back();
 
       // Replace all spaces with ' '.
