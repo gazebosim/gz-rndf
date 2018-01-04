@@ -28,13 +28,13 @@ TEST(HelpersTest, env)
 
   // Check that an unknown environment variable returns false.
   std::string value;
-  EXPECT_FALSE(ignition::env(name, value));
+  EXPECT_FALSE(ignition::rndf::env(name, value));
 
   // Create a random environment variable and give it its name as value.
   setenv(name.c_str(), name.c_str(), 1);
 
   // Check that we find the environment variable and the value is correct.
-  EXPECT_TRUE(ignition::env(name, value));
+  EXPECT_TRUE(ignition::rndf::env(name, value));
   EXPECT_EQ(name, value);
 }
 

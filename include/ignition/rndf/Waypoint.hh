@@ -21,15 +21,9 @@
 #include <iosfwd>
 #include <memory>
 
-#include "ignition/rndf/Helpers.hh"
+#include <ignition/math/SphericalCoordinates.hh>
 
-namespace ignition
-{
-  namespace math
-  {
-    class SphericalCoordinates;
-  }
-}
+#include "ignition/rndf/Helpers.hh"
 
 namespace ignition
 {

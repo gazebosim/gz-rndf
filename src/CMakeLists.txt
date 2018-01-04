@@ -1,56 +1,23 @@
-include (${project_cmake_dir}/Utils.cmake)
+# Collect source files into the "sources" variable and unit test files into the
+# "gtest_sources" variable
+ign_get_libsources_and_unittests(sources gtest_sources)
 
-set (sources
-  Checkpoint.cc
-  Exit.cc
-  Lane.cc
-  ParkingSpot.cc
-  ParserUtils.cc
-  Perimeter.cc
-  RNDF.cc
-  RNDFNode.cc
-  Segment.cc
-  UniqueId.cc
-  Waypoint.cc
-  Zone.cc
-)
+# Create the library target
+ign_add_library(${PROJECT_LIBRARY_TARGET_NAME} ${sources})
 
-set (gtest_sources
-  Checkpoint_TEST.cc
-  Exit_TEST.cc
-  Lane_TEST.cc
-  ParkingSpot_TEST.cc
-  ParserUtils_TEST.cc
-  Perimeter_TEST.cc
-  RNDF_TEST.cc
-  RNDFNode_TEST.cc
-  Segment_TEST.cc
-  UniqueId_TEST.cc
-  Waypoint_TEST.cc
-  Zone_TEST.cc
-)
+# Link the libraries that we always need
+target_link_libraries(${PROJECT_LIBRARY_TARGET_NAME}
+  PUBLIC
+    ignition-math${IGN_MATH_VER}::ignition-math${IGN_MATH_VER}
+  PRIVATE
+    ${DL_TARGET})
 
-include_directories(${CMAKE_BINARY_DIR}/ ${CMAKE_BINARY_DIR}/test/)
+# Turn on C++14 support for the library
+ign_set_project_public_cxx_standard(14)
 
-ign_build_tests(${gtest_sources})
+# Create installation instructions for the library target. This must be called
+# in the same scope that the target is created.
+ign_install_library()
 
-if (UNIX)
-  ign_add_library(${PROJECT_NAME_LOWER}${PROJECT_MAJOR_VERSION} ${sources})
-elseif(WIN32)
-  add_library(${PROJECT_NAME_LOWER}${PROJECT_MAJOR_VERSION} STATIC ${sources})
-endif()
-
-target_link_libraries(${PROJECT_NAME_LOWER}${PROJECT_MAJOR_VERSION}
-  ${IGNITION-MATH_LIBRARIES})
-
-if(WIN32)
-  target_link_libraries(${PROJECT_NAME_LOWER}${PROJECT_MAJOR_VERSION}
-    ws2_32 Iphlpapi
-  )
-else()
-  target_link_libraries(${PROJECT_NAME_LOWER}${PROJECT_MAJOR_VERSION}
-  )
-endif()
-
-ign_install_library(${PROJECT_NAME_LOWER}${PROJECT_MAJOR_VERSION})
-
+# Build the unit tests
+ign_build_tests(TYPE UNIT SOURCES ${gtest_sources})
