@@ -24,6 +24,8 @@
 #define IGNITION_RNDF_VERSION_FULL "@PROJECT_VERSION_FULL@"
 
 #include <climits>
+#include <cstdio>
+#include <fstream>
 #include <iostream>
 #include <random>
 #include <string>
