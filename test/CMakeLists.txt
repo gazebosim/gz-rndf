@@ -5,7 +5,9 @@ include_directories (
   ${PROJECT_BINARY_DIR}
 )
 
-configure_file (test_config.h.in ${PROJECT_BINARY_DIR}/include/ignition/rndf/test_config.h)
+if(NOT MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+endif()
 
 # Build gtest
 add_library(gtest STATIC gtest/src/gtest-all.cc)
@@ -14,10 +16,8 @@ target_link_libraries(gtest_main gtest)
 set(GTEST_LIBRARY "${PROJECT_BINARY_DIR}/test/libgtest.a")
 set(GTEST_MAIN_LIBRARY "${PROJECT_BINARY_DIR}/test/libgtest_main.a")
 
-execute_process(COMMAND cmake -E remove_directory ${CMAKE_BINARY_DIR}/test_results)
-execute_process(COMMAND cmake -E make_directory ${CMAKE_BINARY_DIR}/test_results)
-include_directories(${GTEST_INCLUDE_DIRS})
-
 add_subdirectory(integration)
 add_subdirectory(performance)
 add_subdirectory(regression)
+
+configure_file (test_config.h.in ${PROJECT_BINARY_DIR}/include/ignition/rndf/test_config.h)
