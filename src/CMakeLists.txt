@@ -11,9 +11,7 @@ ign_add_library(${PROJECT_LIBRARY_TARGET_NAME} ${sources})
 # Link the libraries that we always need
 target_link_libraries(${PROJECT_LIBRARY_TARGET_NAME}
   PUBLIC
-    ignition-math${IGN_MATH_VER}::ignition-math${IGN_MATH_VER}
-  PRIVATE
-    ${DL_TARGET})
+    ignition-math${IGN_MATH_VER}::ignition-math${IGN_MATH_VER})
 
 # Create installation instructions for the library target. This must be called
 # in the same scope that the target is created.
