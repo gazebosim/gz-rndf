@@ -24,20 +24,6 @@
 
 #include <ignition/rndf/Export.hh>
 
-namespace ignition
-{
-  namespace rndf
-  {
-    /// \brief Find the environment variable '_name' and return its value.
-    /// \param[in] _name Name of the environment variable.
-    /// \param[out] _value Value if the variable was found.
-    /// \return True if the variable was found or false otherwise.
-    IGNITION_RNDF_VISIBLE
-    bool env(const std::string &_name,
-             std::string &_value);
-  }
-}
-
 // Use safer functions on Windows
 #ifdef _MSC_VER
   #define ign_strcat strcat_s
