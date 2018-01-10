@@ -25,13 +25,6 @@
 
 #include "ignition/rndf/Helpers.hh"
 
-#ifdef _WIN32
-// Disable warning C4251 which is triggered by
-// std::unique_ptr
-#pragma warning(push)
-#pragma warning(disable: 4251)
-#endif
-
 namespace ignition
 {
   namespace rndf
@@ -255,7 +248,7 @@ namespace ignition
       /////////
 
       /// \brief Get a pointer to the associated RNDF node given a unique Id.
-      /// The RNDFNode object contains the metada associated to the id.
+      /// The RNDFNode object contains the metadata associated to the id.
       /// \param[in] _id The Unique Id to check.
       /// \return A pointer to the RNDFnode.
       public: RNDFNode *Info(const rndf::UniqueId &_id) const;
@@ -266,13 +259,17 @@ namespace ignition
 
       /// \internal
       /// \brief Smart pointer to private data.
+#ifdef _WIN32
+// Disable warning C4251 which is triggered by
+// std::unique_ptr
+#pragma warning(push)
+#pragma warning(disable: 4251)
+#endif
       private: std::unique_ptr<RNDFPrivate> dataPtr;
-    };
-  }
-}
-
 #ifdef _WIN32
 #pragma warning(pop)
 #endif
-
+    };
+  }
+}
 #endif

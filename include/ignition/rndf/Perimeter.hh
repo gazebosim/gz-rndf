@@ -25,13 +25,6 @@
 
 #include "ignition/rndf/Helpers.hh"
 
-#ifdef _WIN32
-// Disable warning C4251 which is triggered by
-// std::unique_ptr
-#pragma warning(push)
-#pragma warning(disable: 4251)
-#endif
-
 namespace ignition
 {
   namespace rndf
@@ -237,13 +230,17 @@ namespace ignition
 
       /// \internal
       /// \brief Smart pointer to private data.
+#ifdef _WIN32
+// Disable warning C4251 which is triggered by
+// std::unique_ptr
+#pragma warning(push)
+#pragma warning(disable: 4251)
+#endif
       private: std::unique_ptr<PerimeterPrivate> dataPtr;
-    };
-  }
-}
-
 #ifdef _WIN32
 #pragma warning(pop)
 #endif
-
+    };
+  }
+}
 #endif
