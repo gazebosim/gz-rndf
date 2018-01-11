@@ -21,15 +21,9 @@
 #include <iosfwd>
 #include <memory>
 
-#include "ignition/rndf/Helpers.hh"
+#include <ignition/math/SphericalCoordinates.hh>
 
-namespace ignition
-{
-  namespace math
-  {
-    class SphericalCoordinates;
-  }
-}
+#include "ignition/rndf/Helpers.hh"
 
 namespace ignition
 {
@@ -152,7 +146,16 @@ namespace ignition
 
       /// \internal
       /// \brief Smart pointer to private data.
+#ifdef _WIN32
+// Disable warning C4251 which is triggered by
+// std::unique_ptr
+#pragma warning(push)
+#pragma warning(disable: 4251)
+#endif
       private: std::unique_ptr<WaypointPrivate> dataPtr;
+#ifdef _WIN32
+#pragma warning(pop)
+#endif
     };
   }
 }

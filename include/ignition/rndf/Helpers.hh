@@ -22,56 +22,7 @@
 #include <cstring>
 #include <string>
 
-/// \def IGNITION_RNDF_VISIBLE
-/// Use to represent "symbol visible" if supported
-
-/// \def IGNITION_RNDF_HIDDEN
-/// Use to represent "symbol hidden" if supported
-
-#if defined BUILDING_STATIC_LIBS
-  #define IGNITION_RNDF_VISIBLE
-  #define IGNITION_RNDF_HIDDEN
-#else
-  #if defined __WIN32 || defined __CYGWIN__
-    #ifdef BUILDING_DLL
-      #ifdef __GNUC__
-        #define IGNITION_RNDF_VISIBLE __attribute__ ((dllexport))
-      #else
-        #define IGNITION_RNDF_VISIBLE __declspec(dllexport)
-      #endif
-    #else
-      #ifdef __GNUC__
-        #define IGNITION_RNDF_VISIBLE __attribute__ ((dllimport))
-      #else
-        #define IGNITION_RNDF_VISIBLE __declspec(dllimport)
-      #endif
-    #endif
-    #define IGNITION_RNDF_HIDDEN
-  #else
-    #if __GNUC__ >= 4
-      #define IGNITION_RNDF_VISIBLE __attribute__ ((visibility ("default")))
-      #define IGNITION_RNDF_HIDDEN  __attribute__ ((visibility ("hidden")))
-    #else
-      #define IGNITION_RNDF_VISIBLE
-      #define IGNITION_RNDF_HIDDEN
-    #endif
-  #endif
-// BUILDING_STATIC_LIBS
-#endif
-
-namespace ignition
-{
-  namespace rndf
-  {
-    /// \brief Find the environment variable '_name' and return its value.
-    /// \param[in] _name Name of the environment variable.
-    /// \param[out] _value Value if the variable was found.
-    /// \return True if the variable was found or false otherwise.
-    IGNITION_RNDF_VISIBLE
-    bool env(const std::string &_name,
-             std::string &_value);
-  }
-}
+#include <ignition/rndf/Export.hh>
 
 // Use safer functions on Windows
 #ifdef _MSC_VER

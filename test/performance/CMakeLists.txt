@@ -1,8 +1,5 @@
-set(TEST_TYPE "PERFORMANCE")
+ign_get_sources(tests)
 
-set(tests
-)
-
-link_directories(${PROJECT_BINARY_DIR}/test)
-
-ign_build_tests(${tests})
+ign_build_tests(
+  TYPE PERFORMANCE
+  SOURCES ${tests})

@@ -32,7 +32,7 @@ fi
 
 # Identify cppcheck version
 CPPCHECK_VERSION=`cppcheck --version | sed -e 's@Cppcheck @@'`
-CPPCHECK_LT_157=`echo "$CPPCHECK_VERSION 1.57" | \
+CPPCHECK_LT_161=`echo "$CPPCHECK_VERSION 1.61" | \
                  awk '{if ($1 < $2) print 1; else print 0}'`
 
 QUICK_CHECK=0
@@ -63,11 +63,11 @@ then
 else
   CHECK_DIRS="./src ./include ./test/integration ./test/regression \
              ./test/performance ./example ./tools"
-  if [ $CPPCHECK_LT_157 -eq 1 ]; then
+  if [ $CPPCHECK_LT_161 -eq 1 ]; then
     # cppcheck is older than 1.57, so don't check header files (issue #907)
     CPPCHECK_FILES=`find $CHECK_DIRS -name "*.cc"`
   else
-    CPPCHECK_FILES=`find $CHECK_DIRS -name "*.cc" -o -name "*.hh"`
+    CPPCHECK_FILES=`find $CHECK_DIRS -name "*.cc" -o -name "*.hh" | grep -v -e ParserUtils`
   fi
   CPPLINT_FILES=`\
     find $CHECK_DIRS -name "*.cc" -o -name "*.hh" -o -name "*.c" -o -name "*.h"\
@@ -83,23 +83,22 @@ touch $SUPPRESS
 #echo "missingIncludeSystem" >> $SUPPRESS
 
 #cppcheck
-CPPCHECK_BASE="cppcheck -q --suppressions-list=$SUPPRESS"
-if [ $CPPCHECK_LT_157 -eq 0 ]; then
+CPPCHECK_BASE="cppcheck -q --inline-suppr --suppressions-list=$SUPPRESS"
+if [ $CPPCHECK_LT_161 -eq 0 ]; then
   # use --language argument if 1.57 or greater (issue #907)
   CPPCHECK_BASE="$CPPCHECK_BASE --language=c++"
 fi
 CPPCHECK_INCLUDES="-I . -I $builddir -I test -I include"
-CPPCHECK_RULES="-DIGNITION_RNDF_VISIBLE"
+CPPCHECK_RULES="-DIGNITION_RNDF_VISIBLE=1"
 CPPCHECK_CMD1A="-j 4 --enable=style,performance,portability,information"
 CPPCHECK_CMD1B="$CPPCHECK_RULES $CPPCHECK_FILES"
-CPPCHECK_CMD1="$CPPCHECK_CMD1A $CPPCHECK_CMD1B -I include"
+CPPCHECK_CMD1="$CPPCHECK_CMD1A $CPPCHECK_CMD1B"
 CPPCHECK_CMD2="--enable=unusedFunction $CPPCHECK_FILES"
 
 # Checking for missing includes is very time consuming. This is disabled
 # for now
-CPPCHECK_CMD3="-j 4 --enable=missingInclude $CPPCHECK_FILES"\
-" $CPPCHECK_INCLUDES"
-#CPPCHECK_CMD3=""
+CPPCHECK_CMD3="-j 4 --enable=missingInclude $CPPCHECK_FILES $CPPCHECK_INCLUDES"
+# CPPCHECK_CMD3=""
 
 if [ $xmlout -eq 1 ]; then
   # Performance, style, portability, and information
@@ -122,7 +121,7 @@ elif [ $QUICK_CHECK -eq 1 ]; then
     DO_CPPCHECK=0
     if [ $ext = 'cc' ]; then
       DO_CPPCHECK=1
-    elif [ $CPPCHECK_LT_157 -eq 0 ]; then
+    elif [ $CPPCHECK_LT_161 -eq 0 ]; then
       DO_CPPCHECK=1
     fi
 

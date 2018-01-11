@@ -1,10 +1,8 @@
-set(TEST_TYPE "INTEGRATION")
+# This is to make test_config.h visible
+include_directories("${CMAKE_BINARY_DIR}")
 
-set(tests
+ign_get_sources(tests)
 
-)
-
-include_directories(SYSTEM ${CMAKE_BINARY_DIR}/test/)
-link_directories(${PROJECT_BINARY_DIR}/test)
-
-ign_build_tests(${tests})
+ign_build_tests(
+  TYPE INTEGRATION
+  SOURCES ${tests})
