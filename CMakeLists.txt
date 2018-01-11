@@ -21,7 +21,7 @@ ign_configure_project()
 # Set project-specific options
 #============================================================================
 
-# ignition-math currently has no options that are unique to it
+# ignition-rndf currently has no options that are unique to it
 
 
 #============================================================================
