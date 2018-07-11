@@ -91,7 +91,9 @@ TEST_F(ParserUtilsTest, string)
     EXPECT_EQ(res = parseString(f, "delim", value, line), expectedResult);
     EXPECT_EQ(line, expectedLineNum);
     if (res)
+    {
       EXPECT_EQ(value, expectedValue);
+    }
   }
 }
 
@@ -186,7 +188,9 @@ TEST_F(ParserUtilsTest, positive)
     EXPECT_EQ(res = parsePositive(f, "delim", value, line), expectedResult);
     EXPECT_EQ(line, expectedLineNum);
     if (res)
+    {
       EXPECT_EQ(value, expectedValue);
+    }
   }
 }
 
@@ -267,7 +271,9 @@ TEST_F(ParserUtilsTest, nonNegative)
     EXPECT_EQ(res = parseNonNegative(f, "delim", value, line), expectedResult);
     EXPECT_EQ(line, expectedLineNum);
     if (res)
+    {
       EXPECT_EQ(value, expectedValue);
+    }
   }
 }
 
