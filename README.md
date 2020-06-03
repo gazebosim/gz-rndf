@@ -4,9 +4,9 @@
 
 Ignition RNDF is a portable C++ library for parsing RNDF road network files.
 
-  [http://bitbucket.org/ignitionrobotics/ign-rndf](http://bitbucket.org/ignitionrobotics/ign-rndf)
+  [https://github.com/ignitionrobotics/ign-rndf](https://github.com/ignitionrobotics/ign-rndf)
 
-## Continuous integration
+## Continuous integration (old)
 
 Please refer to the [Bitbucket Pipelines](https://bitbucket.org/ignitionrobotics/ign-rndf/addon/pipelines/home#!/).
 
